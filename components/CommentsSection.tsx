@@ -55,13 +55,13 @@ export default function CommentsSection({ members, comments, activeUserId, onSav
                     <button
                       onClick={() => handleSave(member.id)}
                       disabled={saving}
-                      className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-medium min-h-8 disabled:opacity-50"
+                      className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-medium min-h-11 disabled:opacity-50"
                     >
                       {saving ? 'Saving…' : 'Save'}
                     </button>
                     <button
                       onClick={() => setEditingId(null)}
-                      className="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium min-h-8"
+                      className="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium min-h-11"
                     >
                       Cancel
                     </button>

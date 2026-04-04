@@ -74,8 +74,8 @@ export default function SeriesTracker({ members, progress, totalSeasons, totalEp
                 <span className="text-xs text-gray-500">E</span>
                 <input type="number" value={manualEdit.episode} onChange={(e) => setManualEdit({ ...manualEdit, episode: e.target.value })}
                   min={1} className="w-10 px-1 py-1 border rounded text-xs text-center" />
-                <button onClick={handleManualSave} className="px-2 py-1 rounded bg-indigo-600 text-white text-xs min-h-7">OK</button>
-                <button onClick={() => setManualEdit(null)} className="px-2 py-1 rounded bg-gray-100 text-gray-600 text-xs min-h-7">✕</button>
+                <button onClick={handleManualSave} className="px-2 py-1 rounded bg-indigo-600 text-white text-xs min-h-11">OK</button>
+                <button onClick={() => setManualEdit(null)} className="px-2 py-1 rounded bg-gray-100 text-gray-600 text-xs min-h-11">✕</button>
               </div>
             ) : (
               <div className="flex items-center gap-2 flex-1">
@@ -85,14 +85,14 @@ export default function SeriesTracker({ members, progress, totalSeasons, totalEp
                   <>
                     <button
                       onClick={() => setManualEdit({ memberId: member.id, season: String(pos?.season ?? 1), episode: String(pos?.episode ?? 0) })}
-                      className="text-sm font-mono text-gray-700 min-h-8 px-1 hover:text-indigo-600"
+                      className="text-sm font-mono text-gray-700 min-h-11 px-1 hover:text-indigo-600"
                       data-testid={`series-position-${member.id}`}
                     >
                       {pos ? `S${pos.season} E${pos.episode}` : '—'}
                     </button>
                     <button
                       onClick={() => handleIncrement(member)}
-                      className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-bold text-lg flex items-center justify-center hover:bg-indigo-200 transition-colors"
+                      className="w-11 h-11 rounded-full bg-indigo-100 text-indigo-700 font-bold text-lg flex items-center justify-center hover:bg-indigo-200 transition-colors"
                       aria-label="Next episode"
                       data-testid={`series-increment-${member.id}`}
                     >

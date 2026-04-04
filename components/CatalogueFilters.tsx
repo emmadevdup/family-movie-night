@@ -17,7 +17,7 @@ type Props = {
   platforms: string[]
 }
 
-const btnBase = 'px-3 py-1.5 rounded-lg text-xs font-medium min-h-9 transition-colors'
+const btnBase = 'px-3 py-1.5 rounded-lg text-xs font-medium min-h-11 transition-colors'
 const btnActive = 'bg-indigo-600 text-white'
 const btnInactive = 'bg-gray-100 text-gray-600 hover:bg-gray-200'
 
@@ -39,7 +39,7 @@ export default function CatalogueFilters({ filters, onChange, platforms }: Props
           <select
             value={filters.platform}
             onChange={(e) => set({ platform: e.target.value })}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 min-h-9 border-none focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 min-h-11 border-none focus:outline-none focus:ring-2 focus:ring-indigo-400"
           >
             <option value="">All platforms</option>
             {platforms.map((p) => <option key={p} value={p}>{p}</option>)}

@@ -56,7 +56,7 @@ export default function InterestSection({ members, interests, onCycleInterest, o
               <button
                 type="button"
                 onClick={() => onToggleWatched(member.id, !watched)}
-                className={`text-[10px] px-2 py-0.5 rounded-full min-h-7 transition-colors ${
+                className={`text-[10px] px-2 py-0.5 rounded-full min-h-11 transition-colors ${
                   watched ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                 }`}
               >
