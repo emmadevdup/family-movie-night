@@ -1,65 +1,108 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import { useActiveUser } from '@/hooks/useActiveUser'
+import MediaCard from '@/components/MediaCard'
+import CatalogueFilters, { defaultFilters, type Filters } from '@/components/CatalogueFilters'
+import type { Tables } from '@/types/database'
+
+type Media = Tables<'media'>
+type Interest = Tables<'interests'>
+type Member = Tables<'family_members'>
+
+type MediaEntry = Media & {
+  interests: Interest[]
+  comments: { id: string }[]
+}
+
+export default function CataloguePage() {
+  const { activeUserId } = useActiveUser()
+  const [entries, setEntries] = useState<MediaEntry[]>([])
+  const [members, setMembers] = useState<Member[]>([])
+  const [filters, setFilters] = useState<Filters>(defaultFilters())
+
+  async function load() {
+    const [{ data: media }, { data: mems }] = await Promise.all([
+      supabase.from('media').select('*, interests(*), comments(id)').order('created_at', { ascending: false }),
+      supabase.from('family_members').select('*').order('created_at'),
+    ])
+    setEntries((media as MediaEntry[]) ?? [])
+    setMembers(mems ?? [])
+  }
+
+  useEffect(() => {
+    load()
+    const channel = supabase
+      .channel('interests-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'interests' }, () => load())
+      .subscribe()
+    return () => { supabase.removeChannel(channel) }
+  }, [])
+
+  async function handleToggleInterest(mediaId: string, newInterest: Interest['interest']) {
+    if (!activeUserId) return
+    await supabase.from('interests').upsert(
+      { media_id: mediaId, family_member_id: activeUserId, interest: newInterest },
+      { onConflict: 'media_id,family_member_id' }
+    )
+    setEntries((prev) => prev.map((e) => {
+      if (e.id !== mediaId) return e
+      const existing = e.interests.find((i) => i.family_member_id === activeUserId)
+      const updated = existing
+        ? e.interests.map((i) => i.family_member_id === activeUserId ? { ...i, interest: newInterest } : i)
+        : [...e.interests, { media_id: mediaId, family_member_id: activeUserId, interest: newInterest, watched: false, id: '', created_at: '' } as Interest]
+      return { ...e, interests: updated }
+    }))
+  }
+
+  const platforms = [...new Set(entries.map((e) => e.platform).filter(Boolean) as string[])].sort()
+
+  const visible = entries.filter((e) => {
+    if (filters.type !== 'all' && e.type !== filters.type) return false
+    if (filters.platform && e.platform !== filters.platform) return false
+    if (filters.interestLevel === 'yes') {
+      const userInterest = e.interests.find((i) => i.family_member_id === activeUserId)?.interest
+      if (userInterest !== 'yes') return false
+    }
+    if (filters.hideWatched) {
+      const allWatched = members.length > 0 && members.every((m) =>
+        e.interests.find((i) => i.family_member_id === m.id)?.watched
+      )
+      if (allWatched) return false
+    }
+    return true
+  })
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="pb-8">
+      <CatalogueFilters filters={filters} onChange={setFilters} platforms={platforms} />
+
+      {visible.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
+          <p className="text-4xl mb-4">🎬</p>
+          <p className="text-gray-500">
+            {entries.length === 0
+              ? 'No movies or series yet — tap + to add one!'
+              : 'No entries match your filters.'}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      ) : (
+        <ul className="space-y-3 px-4 pt-4">
+          {visible.map((entry) => (
+            <li key={entry.id}>
+              <MediaCard
+                media={entry}
+                interests={entry.interests}
+                members={members}
+                activeUserId={activeUserId}
+                hasComments={entry.comments.length > 0}
+                onToggleInterest={handleToggleInterest}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  );
+  )
 }
