@@ -283,11 +283,12 @@ export default function MovieNightPage() {
         supabase.from('media').select('*, interests(*)'),
       ])
       setMembers(mems ?? [])
+      type MediaRow = Tables<'media'> & { interests: Tables<'interests'>[] }
       setCatalogue(
-        (mediaRows ?? []).map((row: { interests?: Tables<'interests'>[]; [key: string]: unknown }) => {
-          const { interests, ...media } = row
-          return { media: media as Tables<'media'>, interests: interests ?? [] }
-        }),
+        ((mediaRows ?? []) as MediaRow[]).map(({ interests, ...media }) => ({
+          media,
+          interests: interests ?? [],
+        })),
       )
     }
     load()

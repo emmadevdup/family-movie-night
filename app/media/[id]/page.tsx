@@ -28,6 +28,7 @@ export default function DetailPage() {
   const [comments, setComments] = useState<Comment[]>([])
   const [members, setMembers] = useState<Member[]>([])
   const [progress, setProgress] = useState<Progress[]>([])
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   async function load() {
     const [{ data: m }, { data: i }, { data: c }, { data: mems }, { data: prog }] = await Promise.all([
@@ -110,6 +111,11 @@ export default function DetailPage() {
     }
   }
 
+  async function handleDelete() {
+    await supabase.from('media').delete().eq('id', id)
+    router.push('/')
+  }
+
   if (!media) return <div className="p-6 text-gray-400">Loading…</div>
 
   const suggestedBy = members.find((m) => m.id === media.suggested_by)
@@ -119,8 +125,42 @@ export default function DetailPage() {
     <div className="max-w-lg mx-auto pb-12">
       <div className="flex items-center justify-between px-4 py-3">
         <Link href="/" className="text-indigo-600 text-sm font-medium min-h-11 flex items-center">← Back</Link>
-        <Link href={`/media/${id}/edit`} className="text-indigo-600 text-sm font-medium min-h-11 flex items-center">Edit</Link>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowDeleteConfirm(true)}
+            data-testid="remove-button"
+            className="text-red-500 text-sm font-medium min-h-11 flex items-center"
+          >
+            Remove
+          </button>
+          <Link href={`/media/${id}/edit`} className="text-indigo-600 text-sm font-medium min-h-11 flex items-center">Edit</Link>
+        </div>
       </div>
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50 pb-8 px-4">
+          <div className="bg-white rounded-2xl w-full max-w-sm p-6 space-y-4">
+            <h2 className="text-lg font-bold text-gray-900">Remove &ldquo;{media.title}&rdquo;?</h2>
+            <p className="text-sm text-gray-500">This will permanently delete the entry and all associated interests, comments, and progress.</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                data-testid="cancel-delete-button"
+                className="flex-1 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium text-sm min-h-11"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                data-testid="confirm-delete-button"
+                className="flex-1 py-3 rounded-xl bg-red-600 text-white font-semibold text-sm min-h-11"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {media.poster_url && (
         <div className="relative w-full aspect-[2/3] max-h-80 bg-gray-100">

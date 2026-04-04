@@ -9,7 +9,7 @@ import type { Tables } from '@/types/database'
 type Media = Tables<'media'>
 type Interest = Tables<'interests'>
 
-export type MediaWithInterests = Media & { interests: Interest[] }
+export type MediaWithInterests = { media: Media; interests: Interest[] }
 
 export type ReasonTag =
   | { kind: 'away_wants'; memberId: string }
