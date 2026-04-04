@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elf Preview</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    h1 { margin-bottom: 6px; font-size: 1.4rem; }
+    .subtitle { color: #888; margin-bottom: 12px; font-size: 0.85rem; }
+    h2 {
+      color: #aaa; font-size: 0.85rem; text-transform: uppercase;
+      letter-spacing: 2px; margin: 36px 0 16px;
+      width: 100%; max-width: 600px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      max-width: 600px;
+      width: 100%;
+    }
+    .avatar-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .ring {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .ring img { width: 100%; height: 100%; border-radius: 50%; }
+    .emoji-ring { font-size: 3.2rem; line-height: 1; }
+    .name { font-size: 0.82rem; color: #ddd; text-align: center; font-weight: 600; }
+    .tag  { font-size: 0.7rem; color: #666; text-align: center; }
+    footer { color: #444; font-size: 0.78rem; margin-top: 48px; }
+  </style>
+</head>
+<body>
+  <h1>Elf options</h1>
+  <p class="subtitle">Emoji + DiceBear illustrated faces</p>
+
+  <!-- EMOJI ELVES -->
+  <h2>🧝 Elf — emoji</h2>
+  <div class="grid">
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#d4f0c8;">
+        <span class="emoji-ring">🧝‍♀️</span>
+      </div>
+      <span class="name">Elf</span>
+      <span class="tag">feminine emoji</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#c8e8d4;">
+        <span class="emoji-ring">🧝‍♂️</span>
+      </div>
+      <span class="name">Elf</span>
+      <span class="tag">masculine emoji</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#d8f4e0;">
+        <span class="emoji-ring">🧝</span>
+      </div>
+      <span class="name">Elf</span>
+      <span class="tag">neutral emoji</span>
+    </div>
+
+  </div>
+
+  <!-- DICEBEAR ELF-NAMED FACES -->
+  <h2>✨ Elf — DiceBear illustrated faces</h2>
+  <div class="grid">
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Elara&backgroundColor=c8f0d8" alt="Elara">
+      </div>
+      <span class="name">Elara</span>
+      <span class="tag">elvish name</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Sylvara&backgroundColor=d4e8c0" alt="Sylvara">
+      </div>
+      <span class="name">Sylvara</span>
+      <span class="tag">elvish name</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Aelindra&backgroundColor=b8e8d0" alt="Aelindra">
+      </div>
+      <span class="name">Aelindra</span>
+      <span class="tag">elvish name</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Legolas&backgroundColor=e0f0c8" alt="Legolas">
+      </div>
+      <span class="name">Legolas</span>
+      <span class="tag">elvish name</span>
+    </div>
+
+  </div>
+
+  <!-- EMPRESS — DiceBear illustrated faces -->
+  <h2>👑 Empress — DiceBear illustrated faces</h2>
+  <div class="grid">
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Cleopatra&backgroundColor=f5d87a" alt="Cleopatra">
+      </div>
+      <span class="name">Cleopatra</span>
+      <span class="tag">Egyptian empress</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Nefertiti&backgroundColor=ffc87a" alt="Nefertiti">
+      </div>
+      <span class="name">Nefertiti</span>
+      <span class="tag">Egyptian queen</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Victoria&backgroundColor=dce0ff" alt="Victoria">
+      </div>
+      <span class="name">Victoria</span>
+      <span class="tag">British empress</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Josephine&backgroundColor=ffd8f0" alt="Josephine">
+      </div>
+      <span class="name">Joséphine</span>
+      <span class="tag">French empress</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Catherine&backgroundColor=e8d4ff" alt="Catherine">
+      </div>
+      <span class="name">Catherine</span>
+      <span class="tag">Russian empress</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Elisabeth&backgroundColor=c8f0e8" alt="Elisabeth">
+      </div>
+      <span class="name">Elisabeth</span>
+      <span class="tag">Austrian empress</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Zenobia&backgroundColor=ffe0b8" alt="Zenobia">
+      </div>
+      <span class="name">Zenobia</span>
+      <span class="tag">Palmyrene empress</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Wu-Zetian&backgroundColor=ffb8b8" alt="Wu Zetian">
+      </div>
+      <span class="name">Wu Zetian</span>
+      <span class="tag">Chinese empress</span>
+    </div>
+
+  </div>
+
+  <footer>DiceBear faces load from api.dicebear.com — requires internet.</footer>
+</body>
+</html>

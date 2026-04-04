@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar Preview — Family Movie Night</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    h1 { margin-bottom: 6px; font-size: 1.4rem; }
+    .subtitle { color: #888; margin-bottom: 12px; font-size: 0.85rem; }
+    h2 {
+      color: #aaa; font-size: 0.85rem; text-transform: uppercase;
+      letter-spacing: 2px; margin: 36px 0 16px;
+      width: 100%; max-width: 760px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      max-width: 760px;
+      width: 100%;
+    }
+    .avatar-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .ring {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #444;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .ring img { width: 100%; height: 100%; border-radius: 50%; }
+    .emoji-ring { font-size: 3rem; line-height: 1; }
+    .name { font-size: 0.82rem; color: #ddd; text-align: center; font-weight: 600; }
+    .tag  { font-size: 0.7rem; color: #666; text-align: center; }
+    .count { color: #6ee7b7; font-size: 0.8rem; font-weight: bold; margin-top: 4px; }
+    footer { color: #444; font-size: 0.78rem; margin-top: 48px; }
+  </style>
+</head>
+<body>
+  <h1>Final Avatar Set — 20 options</h1>
+  <p class="subtitle">Fox · Wolf · Dragon · Unicorn · Fish · Owl · Astronaut · Elf · Princess · Pixel · Braids · Curls · Cap · Headphones · Cat face · Fox face · Astronaut face · Ponytail · Fringe · Wizard face · Robot face</p>
+
+  <!-- EMOJI: ANIMALS & FANTASY -->
+  <h2>🐾 Animals &amp; Fantasy — emoji</h2>
+  <div class="grid">
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#fff3e0;">
+        <span class="emoji-ring">🦊</span>
+      </div>
+      <span class="name">Fox</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#e8f0ff;">
+        <span class="emoji-ring">🐺</span>
+      </div>
+      <span class="name">Wolf</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#f0f8ff;">
+        <span class="emoji-ring">🐉</span>
+      </div>
+      <span class="name">Dragon</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#fdf0ff;">
+        <span class="emoji-ring">🦄</span>
+      </div>
+      <span class="name">Unicorn</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#e0f4ff;">
+        <span class="emoji-ring">🐠</span>
+      </div>
+      <span class="name">Fish</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#1e2a1e;">
+        <span class="emoji-ring">🦉</span>
+      </div>
+      <span class="name">Owl</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#d4f0c8;">
+        <span class="emoji-ring">🧝‍♀️</span>
+      </div>
+      <span class="name">Elf</span>
+    </div>
+
+  </div>
+
+  <!-- EMOJI: ADVENTURE & ROYALTY -->
+  <h2>🚀 Adventure &amp; Royalty — emoji</h2>
+  <div class="grid">
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#e0eeff;">
+        <span class="emoji-ring">🧑‍🚀</span>
+      </div>
+      <span class="name">Astronaut</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring" style="background:#fff0f8;">
+        <span class="emoji-ring">👸</span>
+      </div>
+      <span class="name">Princess</span>
+    </div>
+
+  </div>
+
+  <!-- DICEBEAR: ILLUSTRATED HUMAN FACES -->
+  <h2>👤 Illustrated faces — DiceBear adventurer</h2>
+  <div class="grid">
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=girl-braids&backgroundColor=ffb8d4" alt="Braids">
+      </div>
+      <span class="name">Braids</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=girl-curls&backgroundColor=ffcce0" alt="Curls">
+      </div>
+      <span class="name">Curls</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Luna&backgroundColor=e8b4ff" alt="Ponytail">
+      </div>
+      <span class="name">Ponytail</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=boy-cap&backgroundColor=b8e8ff" alt="Cap">
+      </div>
+      <span class="name">Cap</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=boy-headphones&backgroundColor=c8f0ff" alt="Headphones">
+      </div>
+      <span class="name">Headphones</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Max&backgroundColor=b8f0c8" alt="Fringe">
+      </div>
+      <span class="name">Fringe</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=cosy-cat&backgroundColor=ffeab8" alt="Cat face">
+      </div>
+      <span class="name">Cat face</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=fox&backgroundColor=ffd5b8" alt="Fox face">
+      </div>
+      <span class="name">Fox face</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=astronaut&backgroundColor=b8d4ff" alt="Astronaut face">
+      </div>
+      <span class="name">Astronaut face</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=wizard&backgroundColor=d8b8ff" alt="Wizard face">
+      </div>
+      <span class="name">Wizard face</span>
+    </div>
+
+    <div class="avatar-card">
+      <div class="ring">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=robot-retro&backgroundColor=e0e0e0" alt="Robot face">
+      </div>
+      <span class="name">Robot face</span>
+    </div>
+
+  </div>
+
+  <footer>DiceBear avatars load from api.dicebear.com — requires internet. Emoji avatars are local.</footer>
+</body>
+</html>
