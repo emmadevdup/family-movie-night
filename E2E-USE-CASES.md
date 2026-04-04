@@ -4,7 +4,13 @@
 
 ---
 
-## Use case 1 — Choosing who you are
+## Use case 1a — First launch, no family members yet
+
+You open the app for the very first time. The "Who's watching?" screen appears but there are no avatars — just a message saying no family members exist yet and a "Go to Settings" button. You tap it, land on the Settings page, and add your family members. Once added, tapping the back button (or reopening the overlay) shows the avatars and lets you pick who you are.
+
+---
+
+## Use case 1b — Choosing who you are (returning user)
 
 You open the app. Before anything else, a screen asks "Who's watching?" and shows everyone's avatars. Your name is already highlighted from last time. You tap it to confirm and land on the catalogue. Later, your partner picks up the same phone and taps their avatar in the top corner to switch to their profile so they can update their own preferences.
 
