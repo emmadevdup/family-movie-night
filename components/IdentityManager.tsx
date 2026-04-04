@@ -41,6 +41,13 @@ export default function IdentityManager() {
         <span className="font-semibold text-gray-900">🎬 Movie Night</span>
         <div className="flex items-center gap-1">
           <Link
+            href="/add"
+            aria-label="Add movie or series"
+            className="min-w-11 min-h-11 flex items-center justify-center text-gray-500 hover:text-gray-900 text-xl font-light"
+          >
+            +
+          </Link>
+          <Link
             href="/settings"
             aria-label="Settings"
             className="min-w-11 min-h-11 flex items-center justify-center text-gray-500 hover:text-gray-900"
