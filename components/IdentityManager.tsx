@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useActiveUser } from '@/hooks/useActiveUser'
 import { supabase } from '@/lib/supabase'
 import Avatar from '@/components/Avatar'
@@ -38,6 +39,14 @@ export default function IdentityManager() {
       {/* ── Persistent header avatar button ── */}
       <header className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 h-14 bg-white border-b border-gray-200">
         <span className="font-semibold text-gray-900">🎬 Movie Night</span>
+        <div className="flex items-center gap-1">
+          <Link
+            href="/settings"
+            aria-label="Settings"
+            className="min-w-11 min-h-11 flex items-center justify-center text-gray-500 hover:text-gray-900"
+          >
+            ⚙️
+          </Link>
         <button
           onClick={() => setShowOverlay(true)}
           aria-label="Switch user"
@@ -50,6 +59,7 @@ export default function IdentityManager() {
             <span className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs">?</span>
           )}
         </button>
+        </div>
       </header>
 
       {/* ── "Who's watching?" overlay ── */}
