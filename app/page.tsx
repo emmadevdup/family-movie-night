@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { useActiveUser } from '@/hooks/useActiveUser'
 import MediaCard from '@/components/MediaCard'
@@ -76,6 +77,15 @@ export default function CataloguePage() {
 
   return (
     <div className="pb-8">
+      <div className="px-4 pt-3">
+        <Link
+          href="/movie-night"
+          data-testid="movie-night-button"
+          className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold text-base min-h-11 hover:bg-indigo-700 transition-colors"
+        >
+          🎬 Movie Night
+        </Link>
+      </div>
       <CatalogueFilters filters={filters} onChange={setFilters} platforms={platforms} />
 
       {visible.length === 0 ? (

@@ -11,94 +11,94 @@
 - [x] Create Supabase project and save credentials
 - [x] Add environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `TMDB_API_KEY`)
 - [x] Connect Supabase client library
-- [ ] Deploy skeleton app to Vercel and confirm live URL works
+- [x] Deploy skeleton app to Vercel and confirm live URL works — https://family-movie-night-tau.vercel.app
 
 ---
 
 ## Phase 2 — Database
 
-- [ ] Create `family_members` table
-- [ ] Create `media` table
-- [ ] Create `interests` table (with `interest` enum and `watched` boolean)
-- [ ] Create `series_progress` table
-- [ ] Create `comments` table
-- [ ] Add all unique constraints and foreign keys
-- [ ] Enable Row Level Security on all tables with open policies (no auth)
-- [ ] Enable Supabase Realtime on `interests`, `series_progress`, `comments`
-- [ ] Generate and export TypeScript types from Supabase schema
+- [x] Create `family_members` table
+- [x] Create `media` table
+- [x] Create `interests` table (with `interest` enum and `watched` boolean)
+- [x] Create `series_progress` table
+- [x] Create `comments` table
+- [x] Add all unique constraints and foreign keys
+- [x] Enable Row Level Security on all tables with open policies (no auth)
+- [x] Enable Supabase Realtime on `interests`, `series_progress`, `comments`
+- [x] Generate and export TypeScript types from Supabase schema
 
 ---
 
 ## Phase 3 — Avatar assets
 
-- [ ] Generate all 11 DiceBear `adventurer` SVGs using fixed seeds and save to `/public/avatars/`
-- [ ] Create 6 emoji SVG wrappers (Fox, Wolf, Dragon, Unicorn, Fish, Astronaut) with coloured circle backgrounds and save to `/public/avatars/`
-- [ ] Create `AVATAR_LIST` constant mapping each `avatar_id` key to its asset path and display name
-- [ ] Build `<Avatar>` component: renders circular image with coloured border ring, accepts `avatarId`, `interestState`, `size`, and optional `watched` checkmark overlay
+- [x] Generate all 11 DiceBear `adventurer` SVGs using fixed seeds and save to `/public/avatars/`
+- [x] Create 9 emoji SVG wrappers with coloured circle backgrounds and save to `/public/avatars/`
+- [x] Create `AVATAR_LIST` constant mapping each `avatar_id` key to its asset path and display name
+- [x] Build `<Avatar>` component: renders circular image with coloured border ring, accepts `avatarId`, `interestState`, `size`, and optional `watched` checkmark overlay
 
 ---
 
 ## Phase 4 — User identity
 
-- [ ] Build "Who's watching?" overlay component (avatar grid, name labels, pre-selected user highlighted)
-- [ ] Implement localStorage read/write for `activeUserId`
-- [ ] Show overlay on every app load; dismiss on tap; "Stay as [Name]" shortcut
-- [ ] Add persistent avatar button in page header that reopens the overlay
-- [ ] Write Playwright E2E test: identity selection flow
+- [x] Build "Who's watching?" overlay component (avatar grid, name labels, pre-selected user highlighted)
+- [x] Implement localStorage read/write for `activeUserId`
+- [x] Show overlay on every app load; dismiss on tap; "Stay as [Name]" shortcut
+- [x] Add persistent avatar button in page header that reopens the overlay
+- [x] Write Playwright E2E test: identity selection flow
 
 ---
 
 ## Phase 5 — Family member management (Settings)
 
-- [ ] Build Settings page (`/settings`)
-- [ ] Add family member form (name + avatar picker grid)
-- [ ] Edit and delete family member
-- [ ] Avatar picker component (scrollable grid, selection highlight)
+- [x] Build Settings page (`/settings`)
+- [x] Add family member form (name + avatar picker grid)
+- [x] Edit and delete family member
+- [x] Avatar picker component (scrollable grid, selection highlight)
 
 ---
 
 ## Phase 6 — TMDB integration
 
-- [ ] Create server-side API route `POST /api/tmdb/search` (accepts title + type, returns list of results)
-- [ ] Create server-side API route `GET /api/tmdb/details` (accepts tmdb_id + type, returns full metadata including trailer URL)
-- [ ] Trailer selection logic: first result where `type = "Trailer"` and `site = "YouTube"`
-- [ ] Poster URL construction: `w500` for cards, `w780` for detail page
-- [ ] Write unit tests for trailer selection logic
+- [x] Create server-side API route `POST /api/tmdb/search` (accepts title + type, returns list of results)
+- [x] Create server-side API route `GET /api/tmdb/details` (accepts tmdb_id + type, returns full metadata including trailer URL)
+- [x] Trailer selection logic: first result where `type = "Trailer"` and `site = "YouTube"`
+- [x] Poster URL construction: `w500` for cards, `w780` for detail page
+- [x] Write unit tests for trailer selection logic
 
 ---
 
 ## Phase 7 — Add / Edit media
 
-- [ ] Build TMDB search step (search box → results list with poster, title, year)
-- [ ] Build metadata review step (auto-filled fields, all editable, manual fallback form)
-- [ ] Build interest step (avatar grid, tap to cycle `neutral → yes → no → neutral` for each member)
-- [ ] Wire up form submission: write to `media` + `interests` tables
-- [ ] Build Edit page (`/media/[id]/edit`) reusing the same form
-- [ ] Write Playwright E2E test: add a movie via TMDB
+- [x] Build TMDB search step (search box → results list with poster, title, year)
+- [x] Build metadata review step (auto-filled fields, all editable, manual fallback form)
+- [x] Build interest step (avatar grid, tap to cycle `neutral → yes → no → neutral` for each member)
+- [x] Wire up form submission: write to `media` + `interests` tables
+- [x] Build Edit page (`/media/[id]/edit`) reusing the same form
+- [x] Write Playwright E2E test: add a movie via TMDB
 
 ---
 
 ## Phase 8 — Catalogue
 
-- [ ] Build catalogue page (`/`) with list of media cards
-- [ ] Build `<MediaCard>` component: poster, title, type badge, duration, platform, genre, summary (truncated), suggested-by, avatar row grouped (yes → neutral → no) with border rings, speech bubble icon
-- [ ] Watched dimming: slight dim if current user watched; heavy dim + "All seen ✓" banner if all members watched
-- [ ] Quick-toggle interest: tap own avatar on card cycles interest state (no navigation)
-- [ ] Filter bar: by type, platform, interest level, hide/show fully-watched
-- [ ] Realtime subscription: update cards live when interests change
+- [x] Build catalogue page (`/`) with list of media cards
+- [x] Build `<MediaCard>` component: poster, title, type badge, duration, platform, genre, summary (truncated), suggested-by, avatar row grouped (yes → neutral → no) with border rings, speech bubble icon
+- [x] Watched dimming: slight dim if current user watched; heavy dim + "All seen ✓" banner if all members watched
+- [x] Quick-toggle interest: tap own avatar on card cycles interest state (no navigation)
+- [x] Filter bar: by type, platform, interest level, hide/show fully-watched
+- [x] Realtime subscription: update cards live when interests change
 
 ---
 
 ## Phase 9 — Detail page
 
-- [ ] Build detail page (`/media/[id]`)
-- [ ] Full poster, full summary, metadata row
-- [ ] "Watch trailer" button (opens YouTube in new tab; hidden if no trailer URL)
-- [ ] Interest section: grouped avatars with border rings, tap to cycle state, watched toggle per member
-- [ ] "All seen ✓" banner if all members watched
-- [ ] Comments section: each member's comment with avatar + name; tap own comment to edit inline
-- [ ] Realtime subscription: live updates for interest and comment changes
-- [ ] Write Playwright E2E test: toggle interest on detail page
+- [x] Build detail page (`/media/[id]`)
+- [x] Full poster, full summary, metadata row
+- [x] "Watch trailer" button (opens YouTube in new tab; hidden if no trailer URL)
+- [x] Interest section: grouped avatars with border rings, tap to cycle state, watched toggle per member
+- [x] "All seen ✓" banner if all members watched
+- [x] Comments section: each member's comment with avatar + name; tap own comment to edit inline
+- [x] Realtime subscription: live updates for interest and comment changes
+- [x] Write Playwright E2E test: toggle interest on detail page
 
 ---
 
