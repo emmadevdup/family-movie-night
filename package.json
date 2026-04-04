@@ -9,7 +9,8 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "test": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "types:gen": "supabase gen types typescript --project-id uooqirjiqodrpiztofln --schema public > types/database.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",
