@@ -80,9 +80,18 @@ export default function IdentityManager() {
             <p className="text-gray-500 text-center mb-8 text-sm">Tap your avatar to continue</p>
 
             {members.length === 0 ? (
-              <p className="text-center text-gray-400 mt-16">
-                No family members yet — add some in Settings first.
-              </p>
+              <div className="flex flex-col items-center mt-16 gap-6">
+                <p className="text-center text-gray-400">
+                  No family members yet — add some in Settings first.
+                </p>
+                <Link
+                  href="/settings"
+                  onClick={() => setShowOverlay(false)}
+                  className="min-h-11 px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl text-sm hover:bg-indigo-700 transition-colors"
+                >
+                  ⚙️ Go to Settings
+                </Link>
+              </div>
             ) : (
               <div className="grid grid-cols-3 gap-6 max-w-sm mx-auto">
                 {members.map((member) => {
