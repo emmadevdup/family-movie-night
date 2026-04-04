@@ -104,76 +104,76 @@
 
 ## Phase 10 — Watched tracking
 
-- [ ] Movies: "Mark as watched" toggle on detail page per family member
-- [ ] Series: auto-set `watched = true` in `interests` when `series_progress` reaches `total_episodes`
-- [ ] Manual override: allow marking a series watched independently of progress
-- [ ] Confirm catalogue card dimming logic works correctly for both cases
+- [x] Movies: "Mark as watched" toggle on detail page per family member
+- [x] Series: auto-set `watched = true` in `interests` when `series_progress` reaches `total_episodes`
+- [x] Manual override: allow marking a series watched independently of progress
+- [x] Confirm catalogue card dimming logic works correctly for both cases
 
 ---
 
 ## Phase 11 — Series tracker
 
-- [ ] Show series tracker section on detail page only when any member has progress
-- [ ] Display each member's position as "S1 E4"
-- [ ] One-tap `+` to increment episode; auto-advance season when episode count exceeds season length
-- [ ] Tap position label to set manually (modal or inline input)
-- [ ] Visual indicator: who is ahead / behind / at same point
-- [ ] "Finished" badge auto-appears when member reaches `total_episodes`
+- [x] Show series tracker section on detail page only when any member has progress
+- [x] Display each member's position as "S1 E4"
+- [x] One-tap `+` to increment episode; auto-advance season when episode count exceeds season length
+- [x] Tap position label to set manually (modal or inline input)
+- [x] Visual indicator: who is ahead / behind / at same point
+- [x] "Finished" badge auto-appears when member reaches `total_episodes`
 
 ---
 
 ## Phase 12 — Movie night mode
 
-- [ ] Build movie night page (`/movie-night`)
-- [ ] Step 1: attendee selector (all family members, multi-tap) + time input (parse "2h", "90min", "1h30")
-- [ ] Implement suggestion algorithm in `lib/suggestions.ts`:
+- [x] Build movie night page (`/movie-night`)
+- [x] Step 1: attendee selector (all family members, multi-tap) + time input (parse "2h", "90min", "1h30")
+- [x] Implement suggestion algorithm in `lib/suggestions.ts`:
   - Hard exclusion: any present member with `interest = 'no'`
   - List A logic (all rules)
   - List B logic + reason tag generation
   - List C fallback (C1 too long, C2 has `no` votes)
   - Ranking by present `yes` count
-- [ ] Build results UI: List A, List B (with reason tags), fallback message + List C
-- [ ] Series entries show episode count that fits available time
-- [ ] Write Vitest unit tests for the full suggestion algorithm (see TESTING.md checklist)
-- [ ] Write Playwright E2E test: List A result
-- [ ] Write Playwright E2E test: List C fallback
+- [x] Build results UI: List A, List B (with reason tags), fallback message + List C
+- [x] Series entries show episode count that fits available time
+- [x] Write Vitest unit tests for the full suggestion algorithm (see TESTING.md checklist)
+- [x] Write Playwright E2E test: List A result
+- [x] Write Playwright E2E test: List C fallback
 
 ---
 
 ## Phase 13 — Remove entry
 
-- [ ] Add "Remove" option on detail page (behind confirmation prompt)
-- [ ] Cascade delete: remove associated `interests`, `comments`, `series_progress`
-- [ ] Redirect to catalogue after deletion
-- [ ] Write Playwright E2E test: remove entry
+- [x] Add "Remove" option on detail page (behind confirmation prompt)
+- [x] Cascade delete: remove associated `interests`, `comments`, `series_progress`
+- [x] Redirect to catalogue after deletion
+- [x] Write Playwright E2E test: remove entry
 
 ---
 
 ## Phase 14 — PWA
 
-- [ ] Create `manifest.json` (name, icons, `display: standalone`, `theme_color`)
-- [ ] Add `apple-touch-icon` meta tags for iOS home screen
-- [ ] Configure service worker for offline shell caching (app loads without blank screen offline)
-- [ ] Verify install prompt works on Android Chrome
-- [ ] Manually test "Add to Home Screen" on iOS Safari and Android Chrome
+- [x] Create `manifest.json` (name, icons, `display: standalone`, `theme_color`)
+- [x] Add `apple-touch-icon` meta tags for iOS home screen
+- [x] Configure service worker for offline shell caching (app loads without blank screen offline)
+- [ ] Verify install prompt works on Android Chrome — manual test needed
+- [ ] Manually test "Add to Home Screen" on iOS Safari and Android Chrome — manual test needed
 
 ---
 
 ## Phase 15 — Polish & QA
 
-- [ ] Mobile viewport QA on 390px width (iPhone 14)
-- [ ] Check all tap targets are ≥ 44×44px
-- [ ] Check Realtime updates work across two browser tabs
-- [ ] Check "Who's watching?" overlay on every page load
-- [ ] Performance check: catalogue loads fast with 20+ entries
-- [ ] Run full Vitest suite — all passing
-- [ ] Run full Playwright suite — all passing
+- [x] Mobile viewport QA on 390px width (iPhone 14)
+- [x] Check all tap targets are ≥ 44×44px
+- [ ] Check Realtime updates work across two browser tabs — manual test needed
+- [ ] Check "Who's watching?" overlay on every page load — manual test needed
+- [ ] Performance check: catalogue loads fast with 20+ entries — manual test needed
+- [x] Run full Vitest suite — 60/60 passing
+- [ ] Run full Playwright suite — manual test needed (requires running dev server)
 
 ---
 
 ## Phase 16 — Deployment
 
-- [ ] Set all environment variables in Vercel dashboard
-- [ ] Deploy to production
-- [ ] Smoke test on mobile device (both iOS and Android if possible)
+- [x] Set all environment variables in Vercel dashboard
+- [x] Deploy to production — https://family-movie-night-tau.vercel.app
+- [ ] Smoke test on mobile device (both iOS and Android if possible) — manual test needed
 - [ ] Share link with family
