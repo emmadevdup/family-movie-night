@@ -9,7 +9,7 @@ type InterestState = Database['public']['Enums']['interest_state']
 type Props = {
   avatarId: string
   size?: 'sm' | 'md' | 'lg'
-  interestState?: InterestState
+  interestState?: InterestState | null  // null = no vote (dimmed); undefined = context has no interest concept
   watched?: boolean
 }
 
@@ -31,7 +31,7 @@ export default function Avatar({ avatarId, size = 'md', interestState, watched }
   const meta = AVATAR_LIST[avatarId]
   const px = sizePx[size]
   const ring = interestState ? ringClasses[interestState] : ''
-  const opacity = interestState === undefined ? 'opacity-50' : ''
+  const opacity = interestState === null ? 'opacity-50' : ''
 
   if (!meta) return null
 

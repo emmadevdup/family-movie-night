@@ -95,7 +95,7 @@ export default function MediaCard({ media, interests, members, activeUserId, has
                 <Avatar
                   avatarId={member.avatar_id}
                   size="sm"
-                  interestState={interest?.interest}
+                  interestState={interest?.interest ?? null}
                   watched={interest?.watched ?? false}
                 />
               </button>
