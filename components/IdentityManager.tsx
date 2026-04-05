@@ -106,6 +106,19 @@ export default function IdentityManager() {
     if (hydrated) setShowOverlay(true)
   }, [hydrated])
 
+  // ── Refresh media + interests whenever the overlay opens ─────────────────────
+
+  useEffect(() => {
+    if (!showOverlay) return
+    Promise.all([
+      supabase.from('media').select('id, created_at'),
+      supabase.from('interests').select('media_id, family_member_id, interest'),
+    ]).then(([{ data: med }, { data: ints }]) => {
+      if (med) setMedia(med)
+      if (ints) setInterests(ints)
+    })
+  }, [showOverlay])
+
   // ── User selection ───────────────────────────────────────────────────────────
 
   function selectUser(id: string) {
