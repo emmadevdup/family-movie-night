@@ -62,7 +62,7 @@ export default function MediaMetadataForm({ data, onChange, members, onNext, onB
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
       <Field label="Title *">
         <input type="text" value={data.title} onChange={(e) => set('title', e.target.value)} required maxLength={200} className={inputCls} />
       </Field>
