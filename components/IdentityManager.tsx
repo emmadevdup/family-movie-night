@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useActiveUser } from '@/hooks/useActiveUser'
 import { supabase } from '@/lib/supabase'
 import Avatar from '@/components/Avatar'
@@ -10,6 +11,7 @@ import type { Tables } from '@/types/database'
 type FamilyMember = Tables<'family_members'>
 
 export default function IdentityManager() {
+  const router = useRouter()
   const { activeUserId, setUser, hydrated } = useActiveUser()
   const [members, setMembers] = useState<FamilyMember[]>([])
   const [showOverlay, setShowOverlay] = useState(false)
@@ -31,6 +33,7 @@ export default function IdentityManager() {
   function selectUser(id: string) {
     setUser(id)
     setShowOverlay(false)
+    router.push('/')
   }
 
   function openOverlay() {
@@ -44,7 +47,7 @@ export default function IdentityManager() {
     <>
       {/* ── Persistent header ── */}
       <header className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
-        <span className="font-semibold text-gray-900 dark:text-gray-100">🎬 Movie Night</span>
+        <span className="font-semibold text-gray-900 dark:text-gray-100">🎬 Super Famille Movies</span>
         <div className="flex items-center gap-1">
           <Link
             href="/add"

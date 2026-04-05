@@ -7,13 +7,13 @@ import IdentityManager from '@/components/IdentityManager'
 const geist = Geist({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Movie Night',
+  title: 'Super Famille Movies',
   description: 'Family movie and series tracker',
   manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Movie Night',
+    title: 'Super Famille Movies',
   },
 }
 
