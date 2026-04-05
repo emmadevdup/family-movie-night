@@ -38,6 +38,7 @@ type Props = {
   onNext: () => void
   onBack?: () => void
   submitLabel?: string
+  disabled?: boolean
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
@@ -51,7 +52,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 const inputCls = 'w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11'
 
-export default function MediaMetadataForm({ data, onChange, members, onNext, onBack, submitLabel = 'Next' }: Props) {
+export default function MediaMetadataForm({ data, onChange, members, onNext, onBack, submitLabel = 'Next', disabled = false }: Props) {
   const set = (key: keyof MediaFormData, val: string) => onChange({ ...data, [key]: val })
 
   function handleSubmit(e: React.FormEvent) {
@@ -116,7 +117,7 @@ export default function MediaMetadataForm({ data, onChange, members, onNext, onB
       </Field>
 
       <div className="flex gap-3 pt-2">
-        <button type="submit" className="flex-1 py-3 rounded-xl bg-indigo-600 text-white font-medium min-h-11 hover:bg-indigo-700 transition-colors">
+        <button type="submit" disabled={disabled} className="flex-1 py-3 rounded-xl bg-indigo-600 text-white font-medium min-h-11 hover:bg-indigo-700 transition-colors disabled:opacity-50">
           {submitLabel}
         </button>
         {onBack && (

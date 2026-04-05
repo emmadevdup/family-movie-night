@@ -13,6 +13,8 @@ export default function EditMediaPage() {
   const { id } = useParams<{ id: string }>()
   const [formData, setFormData] = useState<MediaFormData | null>(null)
   const [members, setMembers] = useState<FamilyMember[]>([])
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     Promise.all([
@@ -43,7 +45,9 @@ export default function EditMediaPage() {
 
   async function handleSave() {
     if (!formData) return
-    await supabase.from('media').update({
+    setSaving(true)
+    setError(null)
+    const { error: err } = await supabase.from('media').update({
       title: formData.title.trim(),
       type: formData.type,
       duration_minutes: formData.duration_minutes ? parseInt(formData.duration_minutes) : null,
@@ -60,6 +64,11 @@ export default function EditMediaPage() {
       cast: formData.cast.trim() || null,
       release_year: formData.release_year ? parseInt(formData.release_year) : null,
     }).eq('id', id)
+    if (err) {
+      setError(err.message)
+      setSaving(false)
+      return
+    }
     router.push(`/media/${id}`)
   }
 
@@ -68,13 +77,19 @@ export default function EditMediaPage() {
   return (
     <div className="max-w-lg mx-auto px-4 py-6">
       <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Edit</h1>
+      {error && (
+        <div className="mb-4 px-4 py-3 rounded-xl bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-sm">
+          {error}
+        </div>
+      )}
       <MediaMetadataForm
         data={formData}
         onChange={setFormData}
         members={members}
         onNext={handleSave}
         onBack={() => router.push(`/media/${id}`)}
-        submitLabel="Save changes"
+        submitLabel={saving ? 'Saving…' : 'Save changes'}
+        disabled={saving}
       />
     </div>
   )
