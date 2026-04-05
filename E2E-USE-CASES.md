@@ -18,7 +18,7 @@ You open the app. Before anything else, a screen asks "Who's watching?" and show
 
 ## Use case 2 — Adding a movie
 
-You heard about a film and want to add it. You tap the add button, type the title, and a list of results appears with posters and years. You pick the right one — the poster, summary, duration, and trailer link fill in automatically. You choose the platform, say who suggested it, then tap each family member's avatar to record who's keen. One person who isn't interested gets a red ring. You save it and the card appears in the catalogue immediately.
+You heard about a film and want to add it. You tap the add button, type the title, and a list of results appears with posters and years. You pick the right one — the poster, summary, duration, cast, release year, and trailer link fill in automatically, and the streaming platform is detected. You review the details, then move to the interest step where all family member avatars appear dimmed. You tap each person: one gets green (yes), one gets grey (neutral), one you leave untapped (no vote). You save it and the card appears in the catalogue immediately. The untapped person sees a blue dot on their avatar until they vote.
 
 ---
 

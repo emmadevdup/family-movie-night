@@ -147,7 +147,7 @@ Unique constraint on `(media_id, family_member_id)`.
 4. The following fields auto-fill from TMDB: title, type, duration, genre, poster, summary, trailer URL, total\_seasons, total\_episodes (series), cast (top 5 actors), release year, platform (from TMDB Watch Providers for France — first flatrate/streaming provider)
 5. User fills in the remaining fields: who suggested it, platform (pre-filled but editable), notes. `suggested_by` defaults to the currently active user.
 
-6. **Interest step**: all family member avatars are shown in a grid. The person adding the entry can tap each avatar to set their interest (`neutral` by default, tap once = `yes`, tap again = `no`, tap again = back to `neutral`). This allows one person to record everyone's interest in one go without each person needing their own device.
+6. **Interest step**: all family member avatars are shown in a grid, all starting dimmed ("no vote"). The person adding the entry can tap each avatar to record their interest (tap once = `neutral` / "I don't mind", tap again = `yes`, tap again = `no`, tap again = back to `neutral`). Members left untapped get **no interest record** — they will see the blue notification dot until they vote. This allows one person to record everyone's interest in one go without each person needing their own device.
 7. All auto-filled fields remain editable before saving
 
 **If a title is not found on TMDB**, the user can switch to a manual entry form with all fields blank.

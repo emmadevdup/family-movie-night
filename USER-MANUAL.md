@@ -43,7 +43,7 @@ Tap the **+** button in the top-right corner.
 
 1. **Search** — type a title. Results from TMDB appear with poster, year and type. Tap the right one.
 2. **Review details** — the title, duration, genre, cast, release year, summary, trailer, and platform are filled in automatically. The platform is detected from streaming services available in France (e.g. Netflix, Disney+). Edit anything that looks wrong. **"Suggested by"** defaults to you — change it if someone else found it. Add any notes.
-3. **Set interests** — tap each person's avatar to record their interest right now. You can do this on everyone's behalf in one go — handy when you're all in the same room.
+3. **Set interests** — all avatars start dimmed ("no vote"). Tap each person's avatar to record their interest: first tap = neutral (I don't mind), second = yes, third = no, fourth = back to neutral. Anyone you don't tap will be left as "no vote" — they'll see a blue dot reminding them to weigh in. You can do this for everyone in one go when you're all in the same room.
 4. Tap **Save** — it appears in the catalogue immediately on everyone's device.
 
 If a title isn't on TMDB, tap **"Enter manually"** to fill in everything yourself.

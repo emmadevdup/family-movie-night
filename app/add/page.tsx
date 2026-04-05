@@ -83,11 +83,15 @@ export default function AddPage() {
 
     if (error || !media) { setSaving(false); return }
 
-    const interestRows = members.map((m) => ({
-      media_id: media.id,
-      family_member_id: m.id,
-      interest: (interests[m.id] ?? 'neutral') as InterestState,
-    }))
+    // Only write records for members who were explicitly tapped — others stay
+    // with no record (undefined/"no vote" state) so the blue dot triggers for them
+    const interestRows = members
+      .filter((m) => interests[m.id] !== undefined)
+      .map((m) => ({
+        media_id: media.id,
+        family_member_id: m.id,
+        interest: interests[m.id] as InterestState,
+      }))
 
     if (interestRows.length > 0) {
       await supabase.from('interests').insert(interestRows)

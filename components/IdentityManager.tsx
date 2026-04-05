@@ -27,6 +27,7 @@ export default function IdentityManager() {
   const [interests, setInterests] = useState<Interest[]>([])
   const [showOverlay, setShowOverlay] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
+  const [initialized, setInitialized] = useState(false)
 
   // ── Initial data load ────────────────────────────────────────────────────────
 
@@ -40,6 +41,7 @@ export default function IdentityManager() {
       setMembers(mems ?? [])
       setMedia(med ?? [])
       setInterests(ints ?? [])
+      setInitialized(true)
     }
     load()
 
@@ -105,7 +107,7 @@ export default function IdentityManager() {
   // ── Derived state ────────────────────────────────────────────────────────────
 
   const activeUser = members.find((m) => m.id === activeUserId)
-  const headerDot = !!activeUserId && unvotedCount(activeUserId, media, interests) > 0
+  const headerDot = initialized && !!activeUserId && unvotedCount(activeUserId, media, interests) > 0
 
   return (
     <>
@@ -231,7 +233,7 @@ export default function IdentityManager() {
                     >
                       <span className="relative">
                         <Avatar avatarId={member.avatar_id} size="lg" />
-                        {count > 0 && (
+                        {initialized && count > 0 && (
                           <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-blue-500 border-2 border-white dark:border-gray-900" />
                         )}
                       </span>

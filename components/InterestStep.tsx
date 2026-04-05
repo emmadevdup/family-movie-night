@@ -35,7 +35,7 @@ export default function InterestStep({ members, interests, onChange, onSave, onB
 
       <div className="grid grid-cols-3 gap-4">
         {members.map((m) => {
-          const state = interests[m.id] ?? 'neutral'
+          const state = interests[m.id] ?? null  // null = no vote yet → dimmed avatar
           return (
             <button
               key={m.id}
@@ -49,9 +49,10 @@ export default function InterestStep({ members, interests, onChange, onSave, onB
               <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                 state === 'yes' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400' :
                 state === 'no' ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400' :
-                'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
+                state === 'neutral' ? 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400' :
+                'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-500'
               }`}>
-                {ringLabel[state]}
+                {state === null ? 'No vote' : ringLabel[state]}
               </span>
             </button>
           )
