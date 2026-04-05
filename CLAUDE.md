@@ -2,6 +2,8 @@
 
 ## Project Overview
 
+**App name: Super Famille Movies**
+
 A Progressive Web App (PWA) for family use that helps manage a shared list of movies and series, track who wants to watch what, and intelligently suggest the best option on movie night based on who is present and how much time is available.
 
 The app must be simple, fast, and mobile-first. Every interaction that family members repeat regularly (marking interest, updating series progress) must require as few taps as possible.
@@ -59,6 +61,8 @@ See **[TASKS.md](./TASKS.md)** for the phased build task list. See **[TASKS-PLAI
 | poster_url | text | Full TMDB image URL, e.g. `https://image.tmdb.org/t/p/w500{poster_path}` |
 | summary | text | Synopsis from TMDB, editable |
 | trailer_url | text | YouTube trailer URL sourced from TMDB video data |
+| cast | text | Comma-separated top-5 actor names from TMDB credits, editable |
+| release_year | integer | Year of release / first air date from TMDB |
 | created_at | timestamptz | |
 
 ### `interests`
@@ -128,7 +132,7 @@ Unique constraint on `(media_id, family_member_id)`.
 - **Card dimming rules:**
   - If the current user has watched the entry: card is slightly dimmed
   - If **every** family member has `watched = true`: card is heavily dimmed and shows a "All seen ✓" banner across the poster — the clearest signal that this one is done for everyone
-- Filter/sort: by type (movie/series), by platform, by interest level, toggle to hide/show fully-watched entries
+- Filter/sort: by type (movie/series), by platform, by genre, by interest level, toggle to hide/show fully-watched entries, toggle sort between "recent first" (default) and "A→Z" alphabetical
 - Quick-toggle interest: tapping your own avatar on the card cycles through `neutral → yes → no → neutral`. No navigation required.
 - Tap anywhere else on the card to open the detail page
 
@@ -139,8 +143,9 @@ Unique constraint on `(media_id, family_member_id)`.
 1. User types a title (movie or series) into a search box
 2. App queries the TMDB search API and displays results as a list: poster thumbnail, title, year, type
 3. User taps the correct result
-4. The following fields auto-fill from TMDB: title, type, duration, genre, poster, summary, trailer URL, total\_seasons, total\_episodes (series)
-5. User fills in the remaining fields: who suggested it, platform (where to watch), notes
+4. The following fields auto-fill from TMDB: title, type, duration, genre, poster, summary, trailer URL, total\_seasons, total\_episodes (series), cast (top 5 actors), release year, platform (from TMDB Watch Providers for France — first flatrate/streaming provider)
+5. User fills in the remaining fields: who suggested it, platform (pre-filled but editable), notes. `suggested_by` defaults to the currently active user.
+
 6. **Interest step**: all family member avatars are shown in a grid. The person adding the entry can tap each avatar to set their interest (`neutral` by default, tap once = `yes`, tap again = `no`, tap again = back to `neutral`). This allows one person to record everyone's interest in one go without each person needing their own device.
 7. All auto-filled fields remain editable before saving
 
@@ -365,6 +370,37 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 TMDB_API_KEY=
 ```
+
+---
+
+## Dark Mode
+
+The app fully supports dark mode using Tailwind CSS `dark:` variants responding to the device's `prefers-color-scheme: dark` media query. All pages and components apply dark backgrounds and light text automatically — no manual toggle is required.
+
+---
+
+## User Identity — Header Dropdown
+
+Tapping the avatar button in the header opens a dropdown menu with four options:
+- **Change user** — reopens the "Who's watching?" overlay
+- **Catalogue** — navigates to the home screen (`/`)
+- **Movie Night** — navigates to `/movie-night`
+- **Settings** — navigates to `/settings`
+
+After selecting a different user via the overlay, the app navigates to the catalogue home page.
+
+---
+
+## Notification Dot (New Movies Since Last Login)
+
+A small red dot badge appears on a family member's avatar in the "Who's watching?" overlay and on the active user's avatar in the header when there are movies they haven't voted on (still `neutral`) that were added since the last time they confirmed their identity.
+
+**Implementation:**
+- `lib/lastSeen.ts` stores a per-user ISO timestamp in `localStorage` (`lastSeen_{userId}`)
+- When the user selects their identity, the timestamp from *before* confirmation is used to compute which movies are "new and unvoted" — these IDs are stored in component state as `sessionPendingIds`
+- After computing, `lastSeen` is updated to now
+- The header dot uses a Supabase Realtime subscription on `interests` to clear itself live as the user votes
+- No new database table is required
 
 ---
 

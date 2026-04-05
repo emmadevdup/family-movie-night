@@ -58,10 +58,12 @@ export default function CataloguePage() {
   }
 
   const platforms = [...new Set(entries.map((e) => e.platform).filter(Boolean) as string[])].sort()
+  const genres = [...new Set(entries.map((e) => e.genre).filter(Boolean) as string[])].sort()
 
   const visible = entries.filter((e) => {
     if (filters.type !== 'all' && e.type !== filters.type) return false
     if (filters.platform && e.platform !== filters.platform) return false
+    if (filters.genre && e.genre !== filters.genre) return false
     if (filters.interestLevel === 'yes') {
       const userInterest = e.interests.find((i) => i.family_member_id === activeUserId)?.interest
       if (userInterest !== 'yes') return false
@@ -75,6 +77,10 @@ export default function CataloguePage() {
     return true
   })
 
+  if (filters.sort === 'alpha') {
+    visible.sort((a, b) => a.title.localeCompare(b.title))
+  }
+
   return (
     <div className="pb-8">
       <div className="px-4 pt-3">
@@ -86,7 +92,7 @@ export default function CataloguePage() {
           🎬 Movie Night
         </Link>
       </div>
-      <CatalogueFilters filters={filters} onChange={setFilters} platforms={platforms} />
+      <CatalogueFilters filters={filters} onChange={setFilters} platforms={platforms} genres={genres} />
 
       {visible.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 px-6 text-center">

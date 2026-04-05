@@ -177,3 +177,24 @@
 - [x] Deploy to production — https://family-movie-night-tau.vercel.app
 - [ ] Smoke test on mobile device (both iOS and Android if possible) — manual test needed
 - [ ] Share link with family
+
+---
+
+## Phase 17 — Improvements and new features (post-launch)
+
+- [x] Dark mode: all pages and components respond to `prefers-color-scheme: dark` using Tailwind `dark:` variants
+- [x] App renamed to **Super Famille Movies** (layout title + PWA manifest)
+- [x] Fix TMDB poster display: add `image.tmdb.org` to `next.config.ts` `remotePatterns`
+- [x] Header avatar replaced with dropdown menu (Change user / Catalogue / Movie Night / Settings)
+- [x] After switching user via "Who's watching?" overlay, navigate to catalogue (`/`) instead of add page
+- [x] "Who's watching?" overlay — show "Go to Settings" button when no family members exist yet
+- [x] Add / Edit media: default `suggested_by` to the currently active user
+- [x] Catalogue: sort by date added (default) or alphabetical (A→Z toggle)
+- [x] Catalogue: filter by genre
+- [x] Detail page: show cast (top 5 actors) and release year
+- [x] TMDB auto-fill: fetch cast from `/credits` endpoint and platform from Watch Providers (France, flatrate)
+- [x] Database migration: add `cast text` and `release_year integer` columns to `media` table
+- [x] Notification dot: red badge on member avatars in "Who's watching?" overlay when new unwatched/unvoted entries exist since their last login
+- [x] Notification dot: red badge on header avatar persists until all pending entries have been voted on (clears via Realtime)
+- [x] `lib/lastSeen.ts`: per-user ISO timestamp stored in `localStorage`
+- [x] Update all documentation (CLAUDE.md, TESTING.md, E2E-USE-CASES.md, TASKS.md, TASKS-PLAIN.md, USER-MANUAL.md)

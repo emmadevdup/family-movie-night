@@ -42,7 +42,7 @@ export default function AddPage() {
       type: details.type,
       duration_minutes: details.duration_minutes?.toString() ?? '',
       suggested_by: activeUserId ?? '',
-      platform: '',
+      platform: details.platform ?? '',
       genre: details.genre ?? '',
       notes: '',
       total_seasons: details.total_seasons?.toString() ?? '',
@@ -51,6 +51,8 @@ export default function AddPage() {
       poster_url: details.poster_url ?? '',
       summary: details.summary,
       trailer_url: details.trailer_url ?? '',
+      cast: details.cast ?? '',
+      release_year: details.release_year?.toString() ?? '',
     })
     setStep('metadata')
   }
@@ -73,6 +75,8 @@ export default function AddPage() {
         poster_url: formData.poster_url.trim() || null,
         summary: formData.summary.trim() || null,
         trailer_url: formData.trailer_url.trim() || null,
+        cast: formData.cast.trim() || null,
+        release_year: formData.release_year ? parseInt(formData.release_year) : null,
       })
       .select('id')
       .single()

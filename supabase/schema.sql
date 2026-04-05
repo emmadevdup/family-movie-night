@@ -32,6 +32,8 @@ create table media (
   poster_url        text,
   summary           text,
   trailer_url       text,
+  cast              text,
+  release_year      integer,
   created_at        timestamptz not null default now()
 );
 

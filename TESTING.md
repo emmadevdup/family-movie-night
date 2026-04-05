@@ -57,6 +57,20 @@ This is the most critical logic in the app. Every rule must be covered.
 - [ ] Only one family member present
 - [ ] All family members present
 
+#### Catalogue filtering and sorting
+- [ ] Genre filter shows only entries matching the selected genre
+- [ ] Sort `date` (default) shows most recently added entries first
+- [ ] Sort `alpha` shows entries in alphabetical title order
+- [ ] Filters combine correctly (e.g. genre + type filter applied together)
+
+#### Notification dot (`lib/lastSeen.ts` + `computePendingIds`)
+- [ ] `computePendingIds` returns IDs of media added after `lastSeen` where the member is `neutral`
+- [ ] Media added before `lastSeen` is not included
+- [ ] Media where member has `interest = 'yes'` or `'no'` is not included
+- [ ] `computePendingIds` returns `[]` when `lastSeen` is `null`
+- [ ] `hasUnvoted` returns `true` when at least one pending ID is still `neutral`
+- [ ] `hasUnvoted` returns `false` when all pending IDs have been voted on
+
 #### Interest state cycling
 - [ ] `neutral → yes → no → neutral` cycle is correct
 - [ ] Default state for a new member/entry is `neutral`
@@ -86,6 +100,10 @@ This is the most critical logic in the app. Every rule must be covered.
 | 4 | **Movie night — List A result** | Set up entries and interests; enter attendees and time; correct entry appears in List A; reason tags absent |
 | 5 | **Movie night — fallback (List C)** | Configure data so A and B are empty; fallback message appears; C1 and C2 entries shown with correct labels |
 | 6 | **Remove an entry** | Tap Remove on detail page; confirmation prompt appears; confirming deletes entry from catalogue |
+| 7 | **Genre filter** | Select a genre in the filter bar; only entries with that genre appear; clearing filter restores full list |
+| 8 | **Sort catalogue** | Default order is newest-first; toggling to A→Z sorts alphabetically; toggling back restores date order |
+| 9 | **Notification dot — appears** | Log in as user A; add a new entry; log in as user B (who hasn't voted); red dot appears on user B's avatar in the overlay |
+| 10 | **Notification dot — clears** | After user B votes on the new entry, the header dot disappears without page reload |
 
 ### What is not E2E tested
 - TMDB API responses (mocked at the Next.js API route level)

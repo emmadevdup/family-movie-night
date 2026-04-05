@@ -118,6 +118,7 @@ export type Database = {
       }
       media: {
         Row: {
+          cast: string | null
           created_at: string
           duration_minutes: number | null
           genre: string | null
@@ -125,6 +126,7 @@ export type Database = {
           notes: string | null
           platform: string | null
           poster_url: string | null
+          release_year: number | null
           suggested_by: string | null
           summary: string | null
           title: string
@@ -135,6 +137,7 @@ export type Database = {
           type: Database["public"]["Enums"]["media_type"]
         }
         Insert: {
+          cast?: string | null
           created_at?: string
           duration_minutes?: number | null
           genre?: string | null
@@ -142,6 +145,7 @@ export type Database = {
           notes?: string | null
           platform?: string | null
           poster_url?: string | null
+          release_year?: number | null
           suggested_by?: string | null
           summary?: string | null
           title: string
@@ -152,6 +156,7 @@ export type Database = {
           type: Database["public"]["Enums"]["media_type"]
         }
         Update: {
+          cast?: string | null
           created_at?: string
           duration_minutes?: number | null
           genre?: string | null
@@ -159,6 +164,7 @@ export type Database = {
           notes?: string | null
           platform?: string | null
           poster_url?: string | null
+          release_year?: number | null
           suggested_by?: string | null
           summary?: string | null
           title?: string

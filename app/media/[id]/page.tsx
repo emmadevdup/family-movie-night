@@ -177,9 +177,12 @@ export default function DetailPage() {
             </span>
           </div>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            {[media.duration_minutes && (media.type === 'movie' ? `${media.duration_minutes} min` : `${media.duration_minutes} min/ep`), media.genre, media.platform].filter(Boolean).join(' · ')}
+            {[media.release_year, media.duration_minutes && (media.type === 'movie' ? `${media.duration_minutes} min` : `${media.duration_minutes} min/ep`), media.genre, media.platform].filter(Boolean).join(' · ')}
             {suggestedBy && <span> · Added by {suggestedBy.name}</span>}
           </p>
+          {media.cast && (
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">🎭 {media.cast}</p>
+          )}
         </div>
 
         {media.trailer_url && (

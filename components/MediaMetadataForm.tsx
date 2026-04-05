@@ -18,6 +18,8 @@ export type MediaFormData = {
   poster_url: string
   summary: string
   trailer_url: string
+  cast: string
+  release_year: string
 }
 
 export function emptyFormData(): MediaFormData {
@@ -25,6 +27,7 @@ export function emptyFormData(): MediaFormData {
     title: '', type: 'movie', duration_minutes: '', suggested_by: '',
     platform: '', genre: '', notes: '', total_seasons: '', total_episodes: '',
     tmdb_id: null, poster_url: '', summary: '', trailer_url: '',
+    cast: '', release_year: '',
   }
 }
 

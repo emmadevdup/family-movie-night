@@ -27,6 +27,7 @@ type TMDBMovieDetail = {
   genres: { name: string }[]
   poster_path: string | null
   overview: string
+  release_date: string
 }
 
 type TMDBTVDetail = {
@@ -38,6 +39,21 @@ type TMDBTVDetail = {
   overview: string
   number_of_seasons: number
   number_of_episodes: number
+  first_air_date: string
+}
+
+type TMDBCredits = {
+  cast: { name: string; order: number }[]
+}
+
+type TMDBWatchProviders = {
+  results: {
+    [countryCode: string]: {
+      flatrate?: { provider_name: string }[]
+      rent?: { provider_name: string }[]
+      buy?: { provider_name: string }[]
+    }
+  }
 }
 
 export type SearchResult = {
@@ -59,6 +75,9 @@ export type MediaDetails = {
   trailer_url: string | null
   total_seasons: number | null
   total_episodes: number | null
+  cast: string | null
+  release_year: number | null
+  platform: string | null
 }
 
 // ─── Pure utilities ───────────────────────────────────────────────────────────
@@ -121,15 +140,33 @@ export async function searchTMDB(query: string): Promise<SearchResult[]> {
   return combined
 }
 
+const WATCH_PROVIDER_COUNTRY = 'FR'
+
+function selectPlatform(providers: TMDBWatchProviders): string | null {
+  const country = providers.results[WATCH_PROVIDER_COUNTRY]
+  if (!country) return null
+  const list = country.flatrate ?? country.rent ?? country.buy ?? []
+  return list.map((p) => p.provider_name).slice(0, 2).join(' / ') || null
+}
+
+function selectCast(credits: TMDBCredits): string | null {
+  const names = credits.cast
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 5)
+    .map((a) => a.name)
+  return names.length > 0 ? names.join(', ') : null
+}
+
 export async function getTMDBDetails(tmdbId: number, type: 'movie' | 'series'): Promise<MediaDetails> {
   const endpoint = type === 'movie' ? `/movie/${tmdbId}` : `/tv/${tmdbId}`
-  const videosEndpoint = `${endpoint}/videos`
 
-  const [detail, videosData] = await Promise.all([
+  const [detail, videosData, credits, watchProviders] = await Promise.all([
     type === 'movie'
       ? tmdbFetch<TMDBMovieDetail>(`${endpoint}?`)
       : tmdbFetch<TMDBTVDetail>(`${endpoint}?`),
-    tmdbFetch<{ results: TMDBVideo[] }>(`${videosEndpoint}?`),
+    tmdbFetch<{ results: TMDBVideo[] }>(`${endpoint}/videos?`),
+    tmdbFetch<TMDBCredits>(`${endpoint}/credits?`),
+    tmdbFetch<TMDBWatchProviders>(`${endpoint}/watch/providers?`),
   ])
 
   if (type === 'movie') {
@@ -145,6 +182,9 @@ export async function getTMDBDetails(tmdbId: number, type: 'movie' | 'series'): 
       trailer_url: selectTrailer(videosData.results),
       total_seasons: null,
       total_episodes: null,
+      cast: selectCast(credits),
+      release_year: m.release_date ? parseInt(m.release_date.slice(0, 4)) : null,
+      platform: selectPlatform(watchProviders),
     }
   } else {
     const s = detail as TMDBTVDetail
@@ -159,6 +199,9 @@ export async function getTMDBDetails(tmdbId: number, type: 'movie' | 'series'): 
       trailer_url: selectTrailer(videosData.results),
       total_seasons: s.number_of_seasons,
       total_episodes: s.number_of_episodes,
+      cast: selectCast(credits),
+      release_year: s.first_air_date ? parseInt(s.first_air_date.slice(0, 4)) : null,
+      platform: selectPlatform(watchProviders),
     }
   }
 }

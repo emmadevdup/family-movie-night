@@ -43,3 +43,15 @@ Same setup, but everything either has someone saying no, is too long, or an abse
 ## Use case 6 — Removing an entry
 
 A film you added turns out to already be available in another way and you want to tidy up the list. You open its detail page, tap Remove, confirm the prompt, and the entry disappears from the catalogue.
+
+---
+
+## Use case 7 — Filtering by genre and sorting the catalogue
+
+The catalogue has grown and you want to find something specific. You tap the genre filter and choose "Action" — the list shrinks to only action entries. You then toggle the sort to A→Z and the results sort alphabetically. Clearing the genre filter brings back all entries (still sorted). Toggling sort back shows newest additions first again.
+
+---
+
+## Use case 8 — Notification dot for new movies
+
+Your partner added two new films to the catalogue while you weren't using the app. When you open the app and the "Who's watching?" screen appears, you notice a small red dot on your avatar — meaning there are new entries you haven't voted on yet. You tap your avatar to confirm it's you, browse the catalogue, and vote on the new films. The red dot in the header corner disappears once you've expressed your preference on all of them.

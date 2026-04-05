@@ -53,3 +53,6 @@ Check everything on a real phone screen, verify all buttons are easy to tap, con
 
 ## Phase 16 — Deployment
 Set production credentials, do the final deploy, and share the link with the family.
+
+## Phase 17 — Improvements and new features (post-launch)
+A batch of quality-of-life improvements: full dark mode adapting to the phone's night setting, app renamed to "Super Famille Movies", a dropdown menu behind the avatar button, genre filter and sort order in the catalogue, cast and release year on detail pages, automatic platform detection from TMDB, and a notification dot that tells each family member when new entries have been added since they last opened the app.

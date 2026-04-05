@@ -35,6 +35,8 @@ export default function EditMediaPage() {
         poster_url: media.poster_url ?? '',
         summary: media.summary ?? '',
         trailer_url: media.trailer_url ?? '',
+        cast: media.cast ?? '',
+        release_year: media.release_year?.toString() ?? '',
       })
     })
   }, [id, router])
@@ -55,6 +57,8 @@ export default function EditMediaPage() {
       poster_url: formData.poster_url.trim() || null,
       summary: formData.summary.trim() || null,
       trailer_url: formData.trailer_url.trim() || null,
+      cast: formData.cast.trim() || null,
+      release_year: formData.release_year ? parseInt(formData.release_year) : null,
     }).eq('id', id)
     router.push(`/media/${id}`)
   }
