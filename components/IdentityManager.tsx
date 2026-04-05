@@ -20,9 +20,8 @@ function computePendingIds(
   interests: Interest[],
   lastSeen: string | null,
 ): string[] {
-  if (!lastSeen) return []
   return media
-    .filter((m) => m.created_at > lastSeen)
+    .filter((m) => lastSeen === null || m.created_at > lastSeen)
     .filter((m) => {
       const interest = interests.find(
         (i) => i.family_member_id === memberId && i.media_id === m.id,
