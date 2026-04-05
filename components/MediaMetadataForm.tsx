@@ -79,7 +79,7 @@ export default function MediaMetadataForm({ data, onChange, members, onNext, onB
       </Field>
 
       <Field label={data.type === 'movie' ? 'Runtime (minutes)' : 'Episode length (minutes)'}>
-        <input type="number" value={data.duration_minutes} onChange={(e) => set('duration_minutes', e.target.value)} min={1} max={999} className={inputCls} />
+        <input type="number" value={data.duration_minutes} onChange={(e) => set('duration_minutes', e.target.value)} className={inputCls} />
       </Field>
 
       {data.type === 'series' && (
