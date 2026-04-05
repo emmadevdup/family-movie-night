@@ -77,7 +77,7 @@ export default function IdentityManager() {
       .channel('identity-interests')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'interests' }, (payload) => {
         setInterests((prev) => {
-          const { new: next, old, eventType } = payload as {
+          const { new: next, old, eventType } = payload as unknown as {
             new: Interest; old: Interest; eventType: string
           }
           if (eventType === 'INSERT') return [...prev, next]
