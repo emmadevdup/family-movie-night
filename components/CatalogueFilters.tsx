@@ -4,7 +4,7 @@ export type Filters = {
   type: 'all' | 'movie' | 'series'
   platform: string
   genre: string
-  interestLevel: 'all' | 'yes'
+  interestLevel: 'all' | 'yes' | 'unvoted'
   hideWatched: boolean
   sort: 'date' | 'alpha'
 }
@@ -52,8 +52,10 @@ export default function CatalogueFilters({ filters, onChange, platforms, genres 
           <option value="">All genres</option>
           {genres.map((g) => <option key={g} value={g}>{g}</option>)}
         </select>
-        <button onClick={() => set({ interestLevel: filters.interestLevel === 'yes' ? 'all' : 'yes' })}
-          className={`${btnBase} ${filters.interestLevel === 'yes' ? btnActive : btnInactive}`}>★ Yes</button>
+        <button onClick={() => set({ interestLevel: filters.interestLevel === 'all' ? 'yes' : filters.interestLevel === 'yes' ? 'unvoted' : 'all' })}
+          className={`${btnBase} ${filters.interestLevel !== 'all' ? btnActive : btnInactive}`}>
+          {filters.interestLevel === 'yes' ? '★ Yes' : filters.interestLevel === 'unvoted' ? '? Unvoted' : '★ / ?'}
+        </button>
         <button onClick={() => set({ hideWatched: !filters.hideWatched })}
           className={`${btnBase} ${filters.hideWatched ? btnActive : btnInactive}`}>Seen ✓</button>
       </div>

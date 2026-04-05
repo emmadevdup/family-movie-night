@@ -31,11 +31,12 @@ export default function Avatar({ avatarId, size = 'md', interestState, watched }
   const meta = AVATAR_LIST[avatarId]
   const px = sizePx[size]
   const ring = interestState ? ringClasses[interestState] : ''
+  const opacity = interestState === undefined ? 'opacity-50' : ''
 
   if (!meta) return null
 
   return (
-    <span className={`relative inline-flex shrink-0 ${sizeClasses[size]}`}>
+    <span className={`relative inline-flex shrink-0 ${sizeClasses[size]} ${opacity}`}>
       <Image
         src={meta.path}
         alt={meta.name}

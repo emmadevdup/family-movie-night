@@ -5,44 +5,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useActiveUser } from '@/hooks/useActiveUser'
 import { supabase } from '@/lib/supabase'
-import { getLastSeen, setLastSeen } from '@/lib/lastSeen'
 import Avatar from '@/components/Avatar'
 import type { Tables } from '@/types/database'
 
 type FamilyMember = Tables<'family_members'>
-type Media = Pick<Tables<'media'>, 'id' | 'created_at'>
+type Media = Pick<Tables<'media'>, 'id'>
 type Interest = Pick<Tables<'interests'>, 'media_id' | 'family_member_id' | 'interest'>
 
-/** IDs of movies that were "new + neutral" when the current user last logged in this session. */
-function computePendingIds(
-  memberId: string,
-  media: Media[],
-  interests: Interest[],
-  lastSeen: string | null,
-): string[] {
-  return media
-    .filter((m) => lastSeen === null || m.created_at > lastSeen)
-    .filter((m) => {
-      const interest = interests.find(
-        (i) => i.family_member_id === memberId && i.media_id === m.id,
-      )
-      return !interest || interest.interest === 'neutral'
-    })
-    .map((m) => m.id)
-}
-
-/** True if any of the session-pending movies are still neutral for this user. */
-function hasUnvoted(
-  memberId: string,
-  pendingIds: string[],
-  interests: Interest[],
-): boolean {
-  return pendingIds.some((mediaId) => {
-    const interest = interests.find(
-      (i) => i.family_member_id === memberId && i.media_id === mediaId,
-    )
-    return !interest || interest.interest === 'neutral'
-  })
+/** Count of media entries that have no interest record at all for this member. */
+function unvotedCount(memberId: string, media: Media[], interests: Interest[]): number {
+  return media.filter(
+    (m) => !interests.find((i) => i.family_member_id === memberId && i.media_id === m.id),
+  ).length
 }
 
 export default function IdentityManager() {
@@ -53,8 +27,6 @@ export default function IdentityManager() {
   const [interests, setInterests] = useState<Interest[]>([])
   const [showOverlay, setShowOverlay] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
-  /** Media IDs that were new + neutral when the active user confirmed their identity. */
-  const [sessionPendingIds, setSessionPendingIds] = useState<string[]>([])
 
   // ── Initial data load ────────────────────────────────────────────────────────
 
@@ -62,7 +34,7 @@ export default function IdentityManager() {
     async function load() {
       const [{ data: mems }, { data: med }, { data: ints }] = await Promise.all([
         supabase.from('family_members').select('*').order('created_at'),
-        supabase.from('media').select('id, created_at'),
+        supabase.from('media').select('id'),
         supabase.from('interests').select('media_id, family_member_id, interest'),
       ])
       setMembers(mems ?? [])
@@ -71,7 +43,7 @@ export default function IdentityManager() {
     }
     load()
 
-    // Keep interests in sync so the header dot clears as the user votes
+    // Keep interests in sync so the header dot clears live as the user votes
     const channel = supabase
       .channel('identity-interests')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'interests' }, (payload) => {
@@ -88,8 +60,7 @@ export default function IdentityManager() {
             )
           if (eventType === 'DELETE')
             return prev.filter(
-              (i) =>
-                !(i.media_id === old.media_id && i.family_member_id === old.family_member_id),
+              (i) => !(i.media_id === old.media_id && i.family_member_id === old.family_member_id),
             )
           return prev
         })
@@ -110,7 +81,7 @@ export default function IdentityManager() {
   useEffect(() => {
     if (!showOverlay) return
     Promise.all([
-      supabase.from('media').select('id, created_at'),
+      supabase.from('media').select('id'),
       supabase.from('interests').select('media_id, family_member_id, interest'),
     ]).then(([{ data: med }, { data: ints }]) => {
       if (med) setMedia(med)
@@ -121,10 +92,6 @@ export default function IdentityManager() {
   // ── User selection ───────────────────────────────────────────────────────────
 
   function selectUser(id: string) {
-    const oldLastSeen = getLastSeen(id)
-    const pending = computePendingIds(id, media, interests, oldLastSeen)
-    setSessionPendingIds(pending)
-    setLastSeen(id)
     setUser(id)
     setShowOverlay(false)
     router.push('/')
@@ -138,9 +105,7 @@ export default function IdentityManager() {
   // ── Derived state ────────────────────────────────────────────────────────────
 
   const activeUser = members.find((m) => m.id === activeUserId)
-  const headerDot = activeUserId
-    ? hasUnvoted(activeUserId, sessionPendingIds, interests)
-    : false
+  const headerDot = !!activeUserId && unvotedCount(activeUserId, media, interests) > 0
 
   return (
     <>
@@ -172,7 +137,7 @@ export default function IdentityManager() {
                   <span className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 text-xs">?</span>
                 )}
                 {headerDot && (
-                  <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-red-500 border-2 border-white dark:border-gray-900" />
+                  <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-blue-500 border-2 border-white dark:border-gray-900" />
                 )}
               </span>
             </button>
@@ -253,9 +218,7 @@ export default function IdentityManager() {
               <div className="grid grid-cols-3 gap-6 max-w-sm mx-auto">
                 {members.map((member) => {
                   const isActive = member.id === activeUserId
-                  const lastSeen = getLastSeen(member.id)
-                  const pendingCount = computePendingIds(member.id, media, interests, lastSeen).length
-                  const showDot = pendingCount > 0
+                  const count = unvotedCount(member.id, media, interests)
 
                   return (
                     <button
@@ -268,8 +231,8 @@ export default function IdentityManager() {
                     >
                       <span className="relative">
                         <Avatar avatarId={member.avatar_id} size="lg" />
-                        {showDot && (
-                          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-white dark:border-gray-900" />
+                        {count > 0 && (
+                          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-blue-500 border-2 border-white dark:border-gray-900" />
                         )}
                       </span>
                       <span className="text-sm font-medium text-gray-800 dark:text-gray-200 text-center leading-tight">
@@ -286,12 +249,7 @@ export default function IdentityManager() {
           <div className="px-6 pb-10 pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col gap-2">
             {activeUser && (
               <button
-                onClick={() => {
-                  const oldLastSeen = getLastSeen(activeUser.id)
-                  setSessionPendingIds(computePendingIds(activeUser.id, media, interests, oldLastSeen))
-                  setLastSeen(activeUser.id)
-                  setShowOverlay(false)
-                }}
+                onClick={() => setShowOverlay(false)}
                 data-testid="stay-as-btn"
                 className="w-full py-3 rounded-xl text-indigo-600 dark:text-indigo-400 font-medium text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-11"
               >

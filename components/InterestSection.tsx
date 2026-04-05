@@ -14,7 +14,7 @@ type Props = {
   onToggleWatched: (memberId: string, watched: boolean) => void
 }
 
-const GROUP_ORDER = ['yes', 'neutral', 'no'] as const
+const GROUP_ORDER = ['yes', 'neutral', 'no', undefined] as const
 
 export default function InterestSection({ members, interests, onCycleInterest, onToggleWatched }: Props) {
   const allWatched = members.length > 0 && members.every((m) =>
@@ -22,8 +22,8 @@ export default function InterestSection({ members, interests, onCycleInterest, o
   )
 
   const sorted = [...members].sort((a, b) => {
-    const stateA = interests.find((i) => i.family_member_id === a.id)?.interest ?? 'neutral'
-    const stateB = interests.find((i) => i.family_member_id === b.id)?.interest ?? 'neutral'
+    const stateA = interests.find((i) => i.family_member_id === a.id)?.interest
+    const stateB = interests.find((i) => i.family_member_id === b.id)?.interest
     return GROUP_ORDER.indexOf(stateA) - GROUP_ORDER.indexOf(stateB)
   })
 
@@ -38,16 +38,16 @@ export default function InterestSection({ members, interests, onCycleInterest, o
       <div className="grid grid-cols-3 gap-3">
         {sorted.map((member) => {
           const interest = interests.find((i) => i.family_member_id === member.id)
-          const state = interest?.interest ?? 'neutral'
+          const state = interest?.interest
           const watched = interest?.watched ?? false
 
           return (
             <div key={member.id} className="flex flex-col items-center gap-1.5">
               <button
                 type="button"
-                onClick={() => onCycleInterest(member.id, cycleInterest(state))}
+                onClick={() => onCycleInterest(member.id, cycleInterest(state ?? 'neutral'))}
                 className="min-h-11 min-w-11 flex items-center justify-center"
-                aria-label={`${member.name}: ${state} — tap to change`}
+                aria-label={`${member.name}: ${state ?? 'no vote'} — tap to change`}
                 data-testid={`interest-toggle-${member.id}`}
               >
                 <Avatar avatarId={member.avatar_id} size="lg" interestState={state} watched={watched} />

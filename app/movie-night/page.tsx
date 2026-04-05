@@ -142,9 +142,9 @@ function SuggestionCard({
         {/* Interest breakdown for present members */}
         <div className="flex flex-wrap gap-1">
           {presentMembers.map((m) => {
-            const interest = getInterest(m.id)?.interest ?? 'neutral'
-            const emoji = interest === 'yes' ? '✓' : interest === 'no' ? '✗' : '—'
-            const color = interest === 'yes' ? 'text-green-600' : interest === 'no' ? 'text-red-500' : 'text-gray-400'
+            const interest = getInterest(m.id)?.interest
+            const emoji = interest === 'yes' ? '✓' : interest === 'no' ? '✗' : interest === 'neutral' ? '—' : '?'
+            const color = interest === 'yes' ? 'text-green-600' : interest === 'no' ? 'text-red-500' : interest === 'neutral' ? 'text-gray-400' : 'text-gray-300'
             return (
               <span key={m.id} className={`text-[11px] ${color}`}>
                 {m.name} {emoji}

@@ -80,9 +80,10 @@ Tracks each family member's interest and watched status per media entry.
 Unique constraint on `(media_id, family_member_id)`.
 
 **Interest states:**
-- `neutral` (default) — no opinion expressed. Treated as "willing to watch" for List A eligibility.
-- `yes` — actively wants to watch. Counts toward the ranking score.
-- `no` — explicitly does not want to watch. Moves the entry to List B.
+- *(no record)* — user has never voted on this entry. Shown as a dimmed (50% opacity) avatar with no ring. Triggers the blue notification dot. Treated as "willing to watch" for List A eligibility.
+- `neutral` — explicitly "I don't mind either way". Grey ring. Clears the notification dot. Treated as "willing to watch" for List A eligibility.
+- `yes` — actively wants to watch. Green ring. Counts toward the ranking score.
+- `no` — explicitly does not want to watch. Red ring. Moves the entry to List B / List C.
 
 **Watched logic for series:** A family member's `watched` flag is automatically set to `true` when their `series_progress.episode` count equals `media.total_episodes`. It can also be manually set to `true` (e.g. if they watched it before the app existed). Manual override takes precedence.
 
@@ -132,7 +133,7 @@ Unique constraint on `(media_id, family_member_id)`.
 - **Card dimming rules:**
   - If the current user has watched the entry: card is slightly dimmed
   - If **every** family member has `watched = true`: card is heavily dimmed and shows a "All seen ✓" banner across the poster — the clearest signal that this one is done for everyone
-- Filter/sort: by type (movie/series), by platform, by genre, by interest level, toggle to hide/show fully-watched entries, toggle sort between "recent first" (default) and "A→Z" alphabetical
+- Filter/sort: by type (movie/series), by platform, by genre, by interest level (all / ★ Yes / ? Unvoted), toggle to hide/show fully-watched entries, toggle sort between "recent first" (default) and "A→Z" alphabetical
 - Quick-toggle interest: tapping your own avatar on the card cycles through `neutral → yes → no → neutral`. No navigation required.
 - Tap anywhere else on the card to open the detail page
 
@@ -391,16 +392,16 @@ After selecting a different user via the overlay, the app navigates to the catal
 
 ---
 
-## Notification Dot (New Movies Since Last Login)
+## Notification Dot (Unvoted Movies)
 
-A small red dot badge appears on a family member's avatar in the "Who's watching?" overlay and on the active user's avatar in the header when there are movies they haven't voted on (still `neutral`) that were added since the last time they confirmed their identity.
+A small **blue** dot badge appears on a family member's avatar in the "Who's watching?" overlay and on the active user's avatar in the header when there are movies they have **no interest record for at all** (i.e. they have never voted, not even neutral).
 
 **Implementation:**
-- `lib/lastSeen.ts` stores a per-user ISO timestamp in `localStorage` (`lastSeen_{userId}`)
-- When the user selects their identity, the timestamp from *before* confirmation is used to compute which movies are "new and unvoted" — these IDs are stored in component state as `sessionPendingIds`
-- After computing, `lastSeen` is updated to now
-- The header dot uses a Supabase Realtime subscription on `interests` to clear itself live as the user votes
-- No new database table is required
+- Dot logic: `media.some(m => !interests.find(i => i.family_member_id === userId && i.media_id === m.id))`
+- No timestamps or localStorage required — purely derived from the presence/absence of interest records
+- The header dot clears live via a Supabase Realtime subscription on `interests` as the user votes
+- Voting neutral explicitly sets a record and clears the dot — neutral means "I don't mind", not "no opinion yet"
+- No new database table required
 
 ---
 

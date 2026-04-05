@@ -10,7 +10,7 @@ Open the app at: **https://family-movie-night-tau.vercel.app**
 
 When you open the app, you'll be asked **"Who's watching?"** — just tap your avatar to identify yourself. The app remembers you on your device, so next time you only need to confirm with one tap.
 
-**Red dot on your avatar?** That means new entries have been added to the catalogue since you last opened the app and you haven't voted on them yet. Vote on them (from the catalogue or detail page) and the dot disappears.
+**Blue dot on your avatar?** That means there are entries in the catalogue you haven't voted on yet (no interest record at all). Tap any avatar on a card to vote — even setting it to neutral ("I don't mind") counts as a vote and clears the dot for that entry.
 
 To switch to someone else mid-session, tap the small avatar in the top-right corner of any screen. This opens a menu with quick links to the Catalogue, Movie Night, and Settings, as well as a "Change user" option.
 
@@ -25,13 +25,13 @@ Each card shows:
 - A row of **family avatars** grouped by interest: green ring = wants to watch, grey = neutral, red = doesn't want to watch. A small checkmark on an avatar means that person has already seen it.
 - A speech bubble icon if someone has left a comment.
 
-**Quick-toggle your interest** without leaving the home screen: tap your own avatar on any card to cycle through neutral → yes → no → neutral.
+**Quick-toggle your interest** without leaving the home screen: tap your own avatar on any card to cycle through neutral → yes → no → neutral. A dimmed avatar means that person hasn't voted yet; a grey ring means they explicitly don't mind.
 
 **Filter and sort the list** using the bar at the top:
 - Filter by type (Movies / Series)
 - Filter by platform
 - Filter by genre
-- Show only entries you've marked as interested
+- Cycle the interest filter: **★ / ?** (inactive) → **★ Yes** (only your yes votes) → **? Unvoted** (entries you haven't voted on yet) → back to all
 - Hide entries everyone has already watched
 - Toggle sort between **Recent first** (default) and **A→Z** alphabetical
 

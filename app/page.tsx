@@ -68,6 +68,10 @@ export default function CataloguePage() {
       const userInterest = e.interests.find((i) => i.family_member_id === activeUserId)?.interest
       if (userInterest !== 'yes') return false
     }
+    if (filters.interestLevel === 'unvoted') {
+      const hasRecord = e.interests.find((i) => i.family_member_id === activeUserId)
+      if (hasRecord) return false
+    }
     if (filters.hideWatched) {
       const allWatched = members.length > 0 && members.every((m) =>
         e.interests.find((i) => i.family_member_id === m.id)?.watched

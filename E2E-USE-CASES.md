@@ -52,6 +52,6 @@ The catalogue has grown and you want to find something specific. You tap the gen
 
 ---
 
-## Use case 8 — Notification dot for new movies
+## Use case 8 — Notification dot for unvoted movies
 
-Your partner added two new films to the catalogue while you weren't using the app. When you open the app and the "Who's watching?" screen appears, you notice a small red dot on your avatar — meaning there are new entries you haven't voted on yet. You tap your avatar to confirm it's you, browse the catalogue, and vote on the new films. The red dot in the header corner disappears once you've expressed your preference on all of them.
+Your partner added two new films to the catalogue while you weren't using the app. When you open the app and the "Who's watching?" screen appears, you notice a small blue dot on your avatar — meaning there are entries you haven't voted on yet. You tap your avatar to confirm it's you, then use the **? Unvoted** filter in the catalogue to see exactly which films need a vote. You tap your avatar on each card to set your interest (even neutral counts). The blue dot in the header corner disappears once all entries have a vote from you.

@@ -25,12 +25,10 @@ export default function MediaCard({ media, interests, members, activeUserId, has
   const userWatched = activeInterest?.watched ?? false
 
   const groups = {
-    yes: members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'yes'),
-    neutral: members.filter((m) => {
-      const state = interests.find((i) => i.family_member_id === m.id)?.interest ?? 'neutral'
-      return state === 'neutral'
-    }),
-    no: members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'no'),
+    yes:     members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'yes'),
+    neutral: members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'neutral'),
+    no:      members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'no'),
+    none:    members.filter((m) => !interests.find((i) => i.family_member_id === m.id)),
   }
 
   const dimClass = allWatched ? 'opacity-40' : userWatched ? 'opacity-70' : ''
@@ -77,7 +75,7 @@ export default function MediaCard({ media, interests, members, activeUserId, has
 
         {/* Avatar row */}
         <div className="flex items-center gap-0.5 flex-wrap">
-          {[...groups.yes, ...groups.neutral, ...groups.no].map((member) => {
+          {[...groups.yes, ...groups.neutral, ...groups.no, ...groups.none].map((member) => {
             const interest = interests.find((i) => i.family_member_id === member.id)
             const isOwn = member.id === activeUserId
             return (
@@ -97,7 +95,7 @@ export default function MediaCard({ media, interests, members, activeUserId, has
                 <Avatar
                   avatarId={member.avatar_id}
                   size="sm"
-                  interestState={interest?.interest ?? 'neutral'}
+                  interestState={interest?.interest}
                   watched={interest?.watched ?? false}
                 />
               </button>
