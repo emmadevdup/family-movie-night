@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { useActiveUser } from '@/hooks/useActiveUser'
 import TMDBSearchStep from '@/components/TMDBSearchStep'
 import MediaMetadataForm, { emptyFormData, type MediaFormData } from '@/components/MediaMetadataForm'
 import InterestStep from '@/components/InterestStep'
@@ -15,6 +16,7 @@ type Step = 'search' | 'metadata' | 'interests'
 
 export default function AddPage() {
   const router = useRouter()
+  const { activeUserId } = useActiveUser()
   const [step, setStep] = useState<Step>('search')
   const [members, setMembers] = useState<FamilyMember[]>([])
   const [formData, setFormData] = useState<MediaFormData>(emptyFormData())
@@ -25,6 +27,13 @@ export default function AddPage() {
     supabase.from('family_members').select('*').order('created_at').then(({ data }) => setMembers(data ?? []))
   }, [])
 
+  // Default suggested_by to the active user once we know who's logged in
+  useEffect(() => {
+    if (activeUserId) {
+      setFormData((prev) => prev.suggested_by ? prev : { ...prev, suggested_by: activeUserId })
+    }
+  }, [activeUserId])
+
   async function handleTMDBSelect(result: SearchResult) {
     const res = await fetch(`/api/tmdb/details?tmdb_id=${result.tmdb_id}&type=${result.type}`)
     const details: MediaDetails = await res.json()
@@ -32,7 +41,7 @@ export default function AddPage() {
       title: details.title,
       type: details.type,
       duration_minutes: details.duration_minutes?.toString() ?? '',
-      suggested_by: '',
+      suggested_by: activeUserId ?? '',
       platform: '',
       genre: details.genre ?? '',
       notes: '',
@@ -91,12 +100,12 @@ export default function AddPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold text-gray-900 mb-6">{titles[step]}</h1>
+      <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">{titles[step]}</h1>
 
       {step === 'search' && (
         <TMDBSearchStep
           onSelect={handleTMDBSelect}
-          onManual={() => { setFormData(emptyFormData()); setStep('metadata') }}
+          onManual={() => { setFormData({ ...emptyFormData(), suggested_by: activeUserId ?? '' }); setStep('metadata') }}
         />
       )}
 

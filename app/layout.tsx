@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-gray-50">
+      <body className="min-h-full flex flex-col bg-gray-50 dark:bg-gray-950">
         <IdentityManager />
         {/* pt-14 offsets the fixed header */}
         <main className="flex-1 pt-14">{children}</main>

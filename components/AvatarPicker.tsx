@@ -14,7 +14,7 @@ type Props = {
 function Group({ title, keys, selected, onSelect }: { title: string; keys: string[]; selected: string; onSelect: (id: string) => void }) {
   return (
     <div>
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">{title}</p>
+      <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-3">{title}</p>
       <div className="grid grid-cols-5 gap-3">
         {keys.map((id) => (
           <button
@@ -23,11 +23,11 @@ function Group({ title, keys, selected, onSelect }: { title: string; keys: strin
             onClick={() => onSelect(id)}
             aria-label={AVATAR_LIST[id]?.name}
             className={`flex flex-col items-center gap-1 p-1 rounded-xl min-h-11 min-w-11 transition-colors ${
-              selected === id ? 'ring-2 ring-indigo-500 bg-indigo-50' : 'hover:bg-gray-100'
+              selected === id ? 'ring-2 ring-indigo-500 bg-indigo-50 dark:bg-indigo-900/30' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             <Avatar avatarId={id} size="md" />
-            <span className="text-[10px] text-gray-500 text-center leading-tight">{AVATAR_LIST[id]?.name}</span>
+            <span className="text-[10px] text-gray-500 dark:text-gray-400 text-center leading-tight">{AVATAR_LIST[id]?.name}</span>
           </button>
         ))}
       </div>

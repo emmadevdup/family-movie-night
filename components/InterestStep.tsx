@@ -29,7 +29,7 @@ export default function InterestStep({ members, interests, onChange, onSave, onB
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-gray-500 text-center">
+      <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
         Tap each person to set their interest. Tap again to cycle.
       </p>
 
@@ -42,14 +42,14 @@ export default function InterestStep({ members, interests, onChange, onSave, onB
               type="button"
               onClick={() => toggle(m.id)}
               data-testid={`interest-btn-${m.id}`}
-              className="flex flex-col items-center gap-2 p-3 rounded-2xl min-h-11 hover:bg-gray-50 transition-colors"
+              className="flex flex-col items-center gap-2 p-3 rounded-2xl min-h-11 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               <Avatar avatarId={m.avatar_id} size="lg" interestState={state} />
-              <span className="text-sm font-medium text-gray-800">{m.name}</span>
+              <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{m.name}</span>
               <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                state === 'yes' ? 'bg-green-100 text-green-700' :
-                state === 'no' ? 'bg-red-100 text-red-700' :
-                'bg-gray-100 text-gray-500'
+                state === 'yes' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400' :
+                state === 'no' ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400' :
+                'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
               }`}>
                 {ringLabel[state]}
               </span>
@@ -70,7 +70,7 @@ export default function InterestStep({ members, interests, onChange, onSave, onB
         <button
           type="button"
           onClick={onBack}
-          className="flex-1 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium min-h-11 hover:bg-gray-50 transition-colors"
+          className="flex-1 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium min-h-11 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
         >
           Back
         </button>

@@ -41,15 +41,15 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold text-gray-900 mb-6">Family members</h1>
+      <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Family members</h1>
 
       {mode === 'list' && (
         <>
           <ul className="space-y-3 mb-6">
             {members.map((m) => (
-              <li key={m.id} className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-sm">
+              <li key={m.id} className="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-sm">
                 <Avatar avatarId={m.avatar_id} size="md" />
-                <span className="flex-1 font-medium text-gray-900">{m.name}</span>
+                <span className="flex-1 font-medium text-gray-900 dark:text-gray-100">{m.name}</span>
                 <button
                   onClick={() => setMode({ type: 'edit', member: m })}
                   className="min-h-11 min-w-11 flex items-center justify-center text-indigo-600 text-sm font-medium"
@@ -65,7 +65,7 @@ export default function SettingsPage() {
               </li>
             ))}
             {members.length === 0 && (
-              <li className="text-center text-gray-400 py-10">No family members yet.</li>
+              <li className="text-center text-gray-400 dark:text-gray-500 py-10">No family members yet.</li>
             )}
           </ul>
 
@@ -96,9 +96,9 @@ export default function SettingsPage() {
       {/* Delete confirmation */}
       {confirmDeleteId && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-8">
-          <div className="w-full max-w-sm bg-white rounded-2xl p-6 space-y-4">
-            <p className="font-semibold text-gray-900 text-center">Remove this family member?</p>
-            <p className="text-sm text-gray-500 text-center">
+          <div className="w-full max-w-sm bg-white dark:bg-gray-900 rounded-2xl p-6 space-y-4">
+            <p className="font-semibold text-gray-900 dark:text-gray-100 text-center">Remove this family member?</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
               Their interests, comments, and progress will be removed too.
             </p>
             <button
@@ -109,7 +109,7 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => setConfirmDeleteId(null)}
-              className="w-full py-3 rounded-xl border border-gray-300 text-gray-700 font-medium min-h-11"
+              className="w-full py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium min-h-11"
             >
               Cancel
             </button>

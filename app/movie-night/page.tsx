@@ -33,7 +33,7 @@ function SetupStep({
   return (
     <div className="px-4 space-y-6">
       <section>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Who&apos;s here tonight?</h2>
+        <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Who&apos;s here tonight?</h2>
         <div className="space-y-2">
           {members.map((m) => {
             const checked = presentIds.has(m.id)
@@ -44,8 +44,8 @@ function SetupStep({
                 data-testid={`attendee-toggle-${m.id}`}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-colors min-h-11 ${
                   checked
-                    ? 'border-indigo-500 bg-indigo-50 text-indigo-800'
-                    : 'border-gray-200 bg-white text-gray-700'
+                    ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300'
+                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300'
                 }`}
               >
                 <span className="text-xl">{checked ? '✓' : '○'}</span>
@@ -57,20 +57,20 @@ function SetupStep({
       </section>
 
       <section>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">How much time?</h2>
+        <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">How much time?</h2>
         <input
           type="text"
           value={timeInput}
           onChange={(e) => onTimeChange(e.target.value)}
           placeholder="e.g. 2h, 90min, 1h30"
           data-testid="time-input"
-          className="w-full px-4 py-3 rounded-xl border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11"
+          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11"
         />
         {timeInput && parsedMinutes === null && (
           <p className="text-xs text-red-500 mt-1">Try formats like "2h", "90min", "1h30"</p>
         )}
         {parsedMinutes !== null && (
-          <p className="text-xs text-gray-400 mt-1">{parsedMinutes} minutes</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{parsedMinutes} minutes</p>
         )}
       </section>
 
@@ -90,9 +90,9 @@ function SetupStep({
 
 function ReasonBadge({ tag, members }: { tag: ReasonTag; members: Member[] }) {
   const name = (id: string) => members.find((m) => m.id === id)?.name ?? id
-  if (tag.kind === 'away_wants') return <span className="text-[11px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full">{name(tag.memberId)} is away and wants to see this</span>
-  if (tag.kind === 'already_watched') return <span className="text-[11px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{name(tag.memberId)} has already seen this</span>
-  if (tag.kind === 'too_long') return <span className="text-[11px] bg-orange-50 text-orange-700 px-2 py-0.5 rounded-full">Too long by {tag.overageMinutes} min</span>
+  if (tag.kind === 'away_wants') return <span className="text-[11px] bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full">{name(tag.memberId)} is away and wants to see this</span>
+  if (tag.kind === 'already_watched') return <span className="text-[11px] bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded-full">{name(tag.memberId)} has already seen this</span>
+  if (tag.kind === 'too_long') return <span className="text-[11px] bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 px-2 py-0.5 rounded-full">Too long by {tag.overageMinutes} min</span>
   return null
 }
 
@@ -113,24 +113,24 @@ function SuggestionCard({
   const getInterest = (memberId: string) => interests.find((i) => i.family_member_id === memberId)
 
   return (
-    <div className="flex gap-3 bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="flex gap-3 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
       {media.poster_url ? (
         <div className="relative w-16 shrink-0">
           <Image src={media.poster_url} alt={media.title} fill className="object-cover" sizes="64px" />
         </div>
       ) : (
-        <div className="w-16 shrink-0 bg-gray-100 flex items-center justify-center text-2xl">🎬</div>
+        <div className="w-16 shrink-0 bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl">🎬</div>
       )}
 
       <div className="flex-1 py-3 pr-3 space-y-1.5 min-w-0">
         <div className="flex items-start gap-2">
-          <span className="font-semibold text-gray-900 text-sm leading-tight flex-1">{media.title}</span>
-          <span className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${media.type === 'movie' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
+          <span className="font-semibold text-gray-900 dark:text-gray-100 text-sm leading-tight flex-1">{media.title}</span>
+          <span className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${media.type === 'movie' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400' : 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400'}`}>
             {media.type === 'movie' ? 'Movie' : 'Series'}
           </span>
         </div>
 
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-500 dark:text-gray-400">
           {media.type === 'movie'
             ? `${media.duration_minutes ?? '?'} min`
             : episodesFit !== undefined && episodesFit > 0
@@ -192,7 +192,7 @@ function ResultsStep({
         <>
           {listA.length > 0 && (
             <section>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3" data-testid="list-a-heading">
+              <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3" data-testid="list-a-heading">
                 Perfect matches
               </h2>
               <div className="space-y-2" data-testid="list-a">
@@ -207,7 +207,7 @@ function ResultsStep({
 
           {listB.length > 0 && (
             <section>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
                 Good, but…
               </h2>
               <div className="space-y-2" data-testid="list-b">
@@ -222,13 +222,13 @@ function ResultsStep({
         </>
       ) : hasFallback ? (
         <>
-          <p className="text-sm text-gray-500 italic" data-testid="no-primary-message">
+          <p className="text-sm text-gray-500 dark:text-gray-400 italic" data-testid="no-primary-message">
             No perfect match tonight — here are some alternatives.
           </p>
 
           {listC1.length > 0 && (
             <section>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
                 Could watch over 2 evenings
               </h2>
               <div className="space-y-2" data-testid="list-c1">
@@ -243,7 +243,7 @@ function ResultsStep({
 
           {listC2.length > 0 && (
             <section>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
                 Not everyone is on board
               </h2>
               <div className="space-y-2" data-testid="list-c2">
@@ -258,7 +258,7 @@ function ResultsStep({
         </>
       ) : (
         <div className="text-center py-12 space-y-2" data-testid="empty-results">
-          <p className="text-gray-400 text-sm">Nothing in the catalogue yet.</p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm">Nothing in the catalogue yet.</p>
           <Link href="/add" className="text-indigo-600 text-sm font-medium">Add something →</Link>
         </div>
       )}
@@ -316,7 +316,7 @@ export default function MovieNightPage() {
     <div className="max-w-lg mx-auto pb-12">
       <div className="px-4 py-3 flex items-center gap-3">
         <Link href="/" className="text-indigo-600 text-sm font-medium min-h-11 flex items-center">← Back</Link>
-        <h1 className="text-lg font-bold text-gray-900">Movie Night</h1>
+        <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100">Movie Night</h1>
       </div>
 
       {step === 'setup' && (

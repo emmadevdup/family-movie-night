@@ -19,13 +19,13 @@ type Props = {
 
 const btnBase = 'px-3 py-1.5 rounded-lg text-xs font-medium min-h-11 transition-colors'
 const btnActive = 'bg-indigo-600 text-white'
-const btnInactive = 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+const btnInactive = 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
 
 export default function CatalogueFilters({ filters, onChange, platforms }: Props) {
   const set = (patch: Partial<Filters>) => onChange({ ...filters, ...patch })
 
   return (
-    <div className="space-y-2 px-4 py-3 bg-white border-b border-gray-100">
+    <div className="space-y-2 px-4 py-3 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
       {/* Type filter */}
       <div className="flex gap-2 flex-wrap">
         {(['all', 'movie', 'series'] as const).map((t) => (
@@ -39,7 +39,7 @@ export default function CatalogueFilters({ filters, onChange, platforms }: Props
           <select
             value={filters.platform}
             onChange={(e) => set({ platform: e.target.value })}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 min-h-11 border-none focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 min-h-11 border-none focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:[color-scheme:dark]"
           >
             <option value="">All platforms</option>
             {platforms.map((p) => <option key={p} value={p}>{p}</option>)}

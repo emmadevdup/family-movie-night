@@ -64,28 +64,28 @@ export default function SeriesTracker({ members, progress, totalSeasons, totalEp
         return (
           <div key={member.id} className="flex items-center gap-3">
             <Avatar avatarId={member.avatar_id} size="sm" />
-            <span className="text-sm font-medium text-gray-800 w-16 shrink-0">{member.name}</span>
+            <span className="text-sm font-medium text-gray-800 dark:text-gray-200 w-16 shrink-0">{member.name}</span>
 
             {isEditing ? (
               <div className="flex items-center gap-1 flex-1">
-                <span className="text-xs text-gray-500">S</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">S</span>
                 <input type="number" value={manualEdit.season} onChange={(e) => setManualEdit({ ...manualEdit, season: e.target.value })}
-                  min={1} max={totalSeasons} className="w-10 px-1 py-1 border rounded text-xs text-center" />
-                <span className="text-xs text-gray-500">E</span>
+                  min={1} max={totalSeasons} className="w-10 px-1 py-1 border border-gray-300 dark:border-gray-600 rounded text-xs text-center bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100" />
+                <span className="text-xs text-gray-500 dark:text-gray-400">E</span>
                 <input type="number" value={manualEdit.episode} onChange={(e) => setManualEdit({ ...manualEdit, episode: e.target.value })}
-                  min={1} className="w-10 px-1 py-1 border rounded text-xs text-center" />
+                  min={1} className="w-10 px-1 py-1 border border-gray-300 dark:border-gray-600 rounded text-xs text-center bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100" />
                 <button onClick={handleManualSave} className="px-2 py-1 rounded bg-indigo-600 text-white text-xs min-h-11">OK</button>
-                <button onClick={() => setManualEdit(null)} className="px-2 py-1 rounded bg-gray-100 text-gray-600 text-xs min-h-11">✕</button>
+                <button onClick={() => setManualEdit(null)} className="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs min-h-11">✕</button>
               </div>
             ) : (
               <div className="flex items-center gap-2 flex-1">
                 {finished ? (
-                  <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-medium">Finished ✓</span>
+                  <span className="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium">Finished ✓</span>
                 ) : (
                   <>
                     <button
                       onClick={() => setManualEdit({ memberId: member.id, season: String(pos?.season ?? 1), episode: String(pos?.episode ?? 0) })}
-                      className="text-sm font-mono text-gray-700 min-h-11 px-1 hover:text-indigo-600"
+                      className="text-sm font-mono text-gray-700 dark:text-gray-300 min-h-11 px-1 hover:text-indigo-600 dark:hover:text-indigo-400"
                       data-testid={`series-position-${member.id}`}
                     >
                       {pos ? `S${pos.season} E${pos.episode}` : '—'}
@@ -101,7 +101,7 @@ export default function SeriesTracker({ members, progress, totalSeasons, totalEp
                   </>
                 )}
                 {relativeLabel && (
-                  <span className="text-[10px] text-gray-400 ml-1">{relativeLabel}</span>
+                  <span className="text-[10px] text-gray-400 dark:text-gray-500 ml-1">{relativeLabel}</span>
                 )}
               </div>
             )}

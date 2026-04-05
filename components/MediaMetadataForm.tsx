@@ -40,13 +40,13 @@ type Props = {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{label}</label>
       {children}
     </div>
   )
 }
 
-const inputCls = 'w-full px-4 py-3 rounded-xl border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11'
+const inputCls = 'w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11'
 
 export default function MediaMetadataForm({ data, onChange, members, onNext, onBack, submitLabel = 'Next' }: Props) {
   const set = (key: keyof MediaFormData, val: string) => onChange({ ...data, [key]: val })
@@ -67,7 +67,7 @@ export default function MediaMetadataForm({ data, onChange, members, onNext, onB
         <div className="flex gap-3">
           {(['movie', 'series'] as const).map((t) => (
             <button key={t} type="button" onClick={() => onChange({ ...data, type: t })}
-              className={`flex-1 py-3 rounded-xl border font-medium min-h-11 capitalize transition-colors ${data.type === t ? 'bg-indigo-600 text-white border-indigo-600' : 'border-gray-300 text-gray-700 hover:bg-gray-50'}`}>
+              className={`flex-1 py-3 rounded-xl border font-medium min-h-11 capitalize transition-colors ${data.type === t ? 'bg-indigo-600 text-white border-indigo-600' : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
               {t === 'movie' ? 'Movie' : 'Series'}
             </button>
           ))}
@@ -117,7 +117,7 @@ export default function MediaMetadataForm({ data, onChange, members, onNext, onB
           {submitLabel}
         </button>
         {onBack && (
-          <button type="button" onClick={onBack} className="flex-1 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium min-h-11 hover:bg-gray-50 transition-colors">
+          <button type="button" onClick={onBack} className="flex-1 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium min-h-11 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
             Back
           </button>
         )}

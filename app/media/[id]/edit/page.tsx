@@ -59,11 +59,11 @@ export default function EditMediaPage() {
     router.push(`/media/${id}`)
   }
 
-  if (!formData) return <div className="p-6 text-gray-400">Loading…</div>
+  if (!formData) return <div className="p-6 text-gray-400 dark:text-gray-500">Loading…</div>
 
   return (
     <div className="max-w-lg mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold text-gray-900 mb-6">Edit</h1>
+      <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Edit</h1>
       <MediaMetadataForm
         data={formData}
         onChange={setFormData}

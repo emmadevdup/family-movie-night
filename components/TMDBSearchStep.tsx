@@ -38,7 +38,7 @@ export default function TMDBSearchStep({ onSelect, onManual }: Props) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search movies or series…"
-          className="flex-1 px-4 py-3 rounded-xl border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11"
+          className="flex-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11"
           data-testid="tmdb-search-input"
         />
         <button
@@ -52,7 +52,7 @@ export default function TMDBSearchStep({ onSelect, onManual }: Props) {
       </form>
 
       {searched && results.length === 0 && (
-        <p className="text-center text-gray-400 py-4">No results found.</p>
+        <p className="text-center text-gray-400 dark:text-gray-500 py-4">No results found.</p>
       )}
 
       <ul className="space-y-2" data-testid="tmdb-results">
@@ -61,7 +61,7 @@ export default function TMDBSearchStep({ onSelect, onManual }: Props) {
             <button
               onClick={() => onSelect(r)}
               data-testid={`tmdb-result-${r.tmdb_id}`}
-              className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 transition-colors text-left min-h-11"
+              className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left min-h-11"
             >
               {r.poster_url ? (
                 <Image
@@ -72,13 +72,13 @@ export default function TMDBSearchStep({ onSelect, onManual }: Props) {
                   className="rounded object-cover shrink-0"
                 />
               ) : (
-                <div className="w-10 h-14 rounded bg-gray-200 shrink-0" />
+                <div className="w-10 h-14 rounded bg-gray-200 dark:bg-gray-700 shrink-0" />
               )}
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-gray-900 truncate">{r.title}</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{r.title}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   {r.year}{' '}
-                  <span className={`inline-block px-1.5 py-0.5 rounded text-xs font-medium ${r.type === 'movie' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
+                  <span className={`inline-block px-1.5 py-0.5 rounded text-xs font-medium ${r.type === 'movie' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400' : 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400'}`}>
                     {r.type === 'movie' ? 'Movie' : 'Series'}
                   </span>
                 </p>

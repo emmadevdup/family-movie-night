@@ -30,7 +30,7 @@ export default function FamilyMemberForm({ initial, onSave, onCancel }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="member-name">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="member-name">
           Name
         </label>
         <input
@@ -40,13 +40,13 @@ export default function FamilyMemberForm({ initial, onSave, onCancel }: Props) {
           onChange={(e) => { setName(e.target.value); setError('') }}
           placeholder="e.g. Sofia"
           maxLength={40}
-          className="w-full px-4 py-3 rounded-xl border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11"
+          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 min-h-11"
         />
         {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
 
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-3">Choose an avatar</p>
+        <p className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Choose an avatar</p>
         <AvatarPicker selected={avatarId} onSelect={setAvatarId} />
       </div>
 
@@ -61,7 +61,7 @@ export default function FamilyMemberForm({ initial, onSave, onCancel }: Props) {
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium min-h-11 hover:bg-gray-50 transition-colors"
+          className="flex-1 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium min-h-11 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
         >
           Cancel
         </button>

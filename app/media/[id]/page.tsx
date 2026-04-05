@@ -116,7 +116,7 @@ export default function DetailPage() {
     router.push('/')
   }
 
-  if (!media) return <div className="p-6 text-gray-400">Loading…</div>
+  if (!media) return <div className="p-6 text-gray-400 dark:text-gray-500">Loading…</div>
 
   const suggestedBy = members.find((m) => m.id === media.suggested_by)
   const seriesStarted = media.type === 'series' && progress.length > 0
@@ -139,14 +139,14 @@ export default function DetailPage() {
 
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50 pb-8 px-4">
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 space-y-4">
-            <h2 className="text-lg font-bold text-gray-900">Remove &ldquo;{media.title}&rdquo;?</h2>
-            <p className="text-sm text-gray-500">This will permanently delete the entry and all associated interests, comments, and progress.</p>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-sm p-6 space-y-4">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Remove &ldquo;{media.title}&rdquo;?</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">This will permanently delete the entry and all associated interests, comments, and progress.</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 data-testid="cancel-delete-button"
-                className="flex-1 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium text-sm min-h-11"
+                className="flex-1 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium text-sm min-h-11"
               >
                 Cancel
               </button>
@@ -163,7 +163,7 @@ export default function DetailPage() {
       )}
 
       {media.poster_url && (
-        <div className="relative w-full aspect-[2/3] max-h-80 bg-gray-100">
+        <div className="relative w-full aspect-[2/3] max-h-80 bg-gray-100 dark:bg-gray-800">
           <Image src={media.poster_url} alt={media.title} fill className="object-contain" sizes="(max-width: 512px) 100vw, 512px" priority />
         </div>
       )}
@@ -171,12 +171,12 @@ export default function DetailPage() {
       <div className="px-4 pt-4 space-y-5">
         <div>
           <div className="flex items-start gap-2">
-            <h1 className="text-xl font-bold text-gray-900 flex-1">{media.title}</h1>
-            <span className={`shrink-0 text-xs font-medium px-2 py-1 rounded-full ${media.type === 'movie' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 flex-1">{media.title}</h1>
+            <span className={`shrink-0 text-xs font-medium px-2 py-1 rounded-full ${media.type === 'movie' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400' : 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400'}`}>
               {media.type === 'movie' ? 'Movie' : 'Series'}
             </span>
           </div>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {[media.duration_minutes && (media.type === 'movie' ? `${media.duration_minutes} min` : `${media.duration_minutes} min/ep`), media.genre, media.platform].filter(Boolean).join(' · ')}
             {suggestedBy && <span> · Added by {suggestedBy.name}</span>}
           </p>
@@ -184,21 +184,21 @@ export default function DetailPage() {
 
         {media.trailer_url && (
           <a href={media.trailer_url} target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-gray-300 text-gray-700 font-medium text-sm min-h-11 hover:bg-gray-50 transition-colors">
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium text-sm min-h-11 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
             ▶ Watch trailer
           </a>
         )}
 
-        {media.summary && <p className="text-sm text-gray-700 leading-relaxed">{media.summary}</p>}
+        {media.summary && <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{media.summary}</p>}
 
         <section>
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Interest</h2>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Interest</h2>
           <InterestSection members={members} interests={interests} onCycleInterest={handleCycleInterest} onToggleWatched={handleToggleWatched} />
         </section>
 
         {media.type === 'series' && media.total_seasons && media.total_episodes && (
           <section>
-            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+            <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
               {seriesStarted ? 'Series progress' : 'Start tracking'}
             </h2>
             <SeriesTracker
@@ -213,7 +213,7 @@ export default function DetailPage() {
         )}
 
         <section>
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Comments</h2>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Comments</h2>
           <CommentsSection mediaId={id} members={members} comments={comments} activeUserId={activeUserId} onSave={handleSaveComment} />
         </section>
       </div>

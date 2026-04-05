@@ -30,7 +30,7 @@ export default function InterestSection({ members, interests, onCycleInterest, o
   return (
     <div className="space-y-3">
       {allWatched && (
-        <div className="flex items-center justify-center gap-2 py-2 px-4 bg-green-50 rounded-xl text-green-700 font-medium text-sm">
+        <div className="flex items-center justify-center gap-2 py-2 px-4 bg-green-50 dark:bg-green-900/30 rounded-xl text-green-700 dark:text-green-400 font-medium text-sm">
           All seen ✓
         </div>
       )}
@@ -52,12 +52,12 @@ export default function InterestSection({ members, interests, onCycleInterest, o
               >
                 <Avatar avatarId={member.avatar_id} size="lg" interestState={state} watched={watched} />
               </button>
-              <span className="text-xs font-medium text-gray-700 text-center">{member.name}</span>
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 text-center">{member.name}</span>
               <button
                 type="button"
                 onClick={() => onToggleWatched(member.id, !watched)}
                 className={`text-[10px] px-2 py-0.5 rounded-full min-h-11 transition-colors ${
-                  watched ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                  watched ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 {watched ? 'Watched ✓' : 'Mark watched'}
