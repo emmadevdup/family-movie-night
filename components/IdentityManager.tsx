@@ -113,7 +113,7 @@ export default function IdentityManager() {
     <>
       {/* ── Persistent header ── */}
       <header className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
-        <span className="font-semibold text-gray-900 dark:text-gray-100">🎬 Super Famille Movies</span>
+        <Link href="/" className="font-semibold text-gray-900 dark:text-gray-100">🎬 Super Famille Movies</Link>
         <div className="flex items-center gap-1">
           <Link
             href="/add"
