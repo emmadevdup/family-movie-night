@@ -28,7 +28,7 @@ Build the server-side routes that search for movies and series and fetch their f
 The full three-step flow for adding an entry: search TMDB, review and adjust the auto-filled info, then set everyone's interest in one go.
 
 ## Phase 8 — Catalogue
-The home screen: cards with posters, interest avatars grouped and colour-ringed, quick interest toggle, dimming for watched entries, and filters.
+The home screen: cards with posters, interest avatars in fixed order with colour rings, quick interest toggle, dimming for watched entries, and filters.
 
 ## Phase 9 — Detail page
 Full poster, complete summary, trailer button, interest section with all family members, comments, and live updates when someone else changes something.

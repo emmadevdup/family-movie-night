@@ -128,7 +128,7 @@ Unique constraint on `(media_id, family_member_id)`.
   - Title, type badge, duration, platform, genre
   - Summary (truncated to 2–3 lines with a fade)
   - Who suggested it
-  - **Avatar row grouped by interest state**, in order: `yes` group first, then `neutral`, then `no`. Within each group avatars are shown side by side. Each avatar has a **coloured border ring**: green = `yes`, light grey = `neutral`, red = `no`. A small checkmark badge overlaid on the avatar indicates the member has watched it.
+  - **Avatar row in fixed order** (family member creation order). Each avatar has a **coloured border ring**: green = `yes`, light grey = `neutral`, red = `no`. A small checkmark badge overlaid on the avatar indicates the member has watched it. Avatars never change position when interest state changes — only the ring colour updates.
   - Speech bubble icon if any comment exists
 - **Card dimming rules:**
   - If the current user has watched the entry: card is slightly dimmed
@@ -162,7 +162,7 @@ For series, duration is the typical episode length (from TMDB's `episode_run_tim
 - Full summary
 - **Trailer link**: a tappable "Watch trailer" button that opens the YouTube trailer URL in a new tab. Only shown if a trailer URL exists.
 - Metadata: duration, genre, platform, suggested by, TMDB source (for reference)
-- Interest section: family members displayed grouped by interest state (`yes` first, then `neutral`, then `no`), each with their avatar, name, border ring colour, and watched checkmark
+- Interest section: family members displayed in fixed order (creation order), each with their avatar, name, border ring colour, and watched checkmark. Avatars stay in place when interest changes — only the ring colour updates.
   - Tapping a member's avatar cycles their interest state: `neutral → yes → no → neutral`
   - "Mark as watched" toggle per family member, one tap, separate from interest
   - If every member has `watched = true`, the page shows an "All seen ✓" banner at the top

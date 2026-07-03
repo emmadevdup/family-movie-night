@@ -81,7 +81,7 @@
 ## Phase 8 — Catalogue
 
 - [x] Build catalogue page (`/`) with list of media cards
-- [x] Build `<MediaCard>` component: poster, title, type badge, duration, platform, genre, summary (truncated), suggested-by, avatar row grouped (yes → neutral → no) with border rings, speech bubble icon
+- [x] Build `<MediaCard>` component: poster, title, type badge, duration, platform, genre, summary (truncated), suggested-by, avatar row in fixed order with border rings, speech bubble icon
 - [x] Watched dimming: slight dim if current user watched; heavy dim + "All seen ✓" banner if all members watched
 - [x] Quick-toggle interest: tap own avatar on card cycles interest state (no navigation)
 - [x] Filter bar: by type, platform, interest level, hide/show fully-watched
@@ -94,7 +94,7 @@
 - [x] Build detail page (`/media/[id]`)
 - [x] Full poster, full summary, metadata row
 - [x] "Watch trailer" button (opens YouTube in new tab; hidden if no trailer URL)
-- [x] Interest section: grouped avatars with border rings, tap to cycle state, watched toggle per member
+- [x] Interest section: fixed-order avatars with border rings, tap to cycle state, watched toggle per member
 - [x] "All seen ✓" banner if all members watched
 - [x] Comments section: each member's comment with avatar + name; tap own comment to edit inline
 - [x] Realtime subscription: live updates for interest and comment changes

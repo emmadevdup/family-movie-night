@@ -22,7 +22,7 @@ This is your catalogue — every movie and series the family has added.
 
 Each card shows:
 - The **poster**, title, type (Movie / Series), length, platform and genre
-- A row of **family avatars** grouped by interest: green ring = wants to watch, grey = neutral, red = doesn't want to watch. A small checkmark on an avatar means that person has already seen it.
+- A row of **family avatars** in a fixed order: green ring = wants to watch, grey = neutral, red = doesn't want to watch. Avatars stay in place when votes change — only the ring colour updates. A small checkmark on an avatar means that person has already seen it.
 - A speech bubble icon if someone has left a comment.
 
 **Quick-toggle your interest** without leaving the home screen: tap your own avatar on any card to cycle through neutral → yes → no → neutral. A dimmed avatar means that person hasn't voted yet; a grey ring means they explicitly don't mind.

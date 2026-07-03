@@ -14,18 +14,10 @@ type Props = {
   onToggleWatched: (memberId: string, watched: boolean) => void
 }
 
-const GROUP_ORDER = ['yes', 'neutral', 'no', null] as const
-
 export default function InterestSection({ members, interests, onCycleInterest, onToggleWatched }: Props) {
   const allWatched = members.length > 0 && members.every((m) =>
     interests.find((i) => i.family_member_id === m.id)?.watched
   )
-
-  const sorted = [...members].sort((a, b) => {
-    const stateA = interests.find((i) => i.family_member_id === a.id)?.interest ?? null
-    const stateB = interests.find((i) => i.family_member_id === b.id)?.interest ?? null
-    return GROUP_ORDER.indexOf(stateA) - GROUP_ORDER.indexOf(stateB)
-  })
 
   return (
     <div className="space-y-3">
@@ -36,7 +28,7 @@ export default function InterestSection({ members, interests, onCycleInterest, o
       )}
 
       <div className="grid grid-cols-3 gap-3">
-        {sorted.map((member) => {
+        {members.map((member) => {
           const interest = interests.find((i) => i.family_member_id === member.id)
           const state = interest?.interest ?? null
           const watched = interest?.watched ?? false

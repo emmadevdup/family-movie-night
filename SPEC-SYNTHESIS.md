@@ -52,7 +52,7 @@ The app is accessible via a link and installable as a home screen app — no App
 - `neutral` — no opinion, treated as willing (grey border ring, does not disqualify)
 - `no` — explicitly does not want to watch (red border ring, exclusion from Lists A & B)
 - Toggled by tapping your own avatar: cycles `neutral → yes → no → neutral`
-- Avatars on each card are **grouped**: yes first, then neutral, then no
+- Avatars on each card are in **fixed order** (creation order) — only the ring colour changes with votes
 
 ### Watched tracking
 - Movies: manual toggle per family member

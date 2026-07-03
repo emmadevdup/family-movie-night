@@ -24,13 +24,6 @@ export default function MediaCard({ media, interests, members, activeUserId, has
   const activeInterest = interests.find((i) => i.family_member_id === activeUserId)
   const userWatched = activeInterest?.watched ?? false
 
-  const groups = {
-    yes:     members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'yes'),
-    neutral: members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'neutral'),
-    no:      members.filter((m) => interests.find((i) => i.family_member_id === m.id)?.interest === 'no'),
-    none:    members.filter((m) => !interests.find((i) => i.family_member_id === m.id)),
-  }
-
   const dimClass = allWatched ? 'opacity-40' : userWatched ? 'opacity-70' : ''
 
   return (
@@ -75,7 +68,7 @@ export default function MediaCard({ media, interests, members, activeUserId, has
 
         {/* Avatar row */}
         <div className="flex items-center gap-0.5 flex-wrap">
-          {[...groups.yes, ...groups.neutral, ...groups.no, ...groups.none].map((member) => {
+          {members.map((member) => {
             const interest = interests.find((i) => i.family_member_id === member.id)
             const isOwn = member.id === activeUserId
             return (

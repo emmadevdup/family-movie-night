@@ -96,7 +96,7 @@ This is the most critical logic in the app. Every rule must be covered.
 | 1a | **First launch — no members** | "Who's watching?" overlay appears; no avatars shown; "Go to Settings" button is visible and navigates to `/settings`; overlay is dismissed on navigation |
 | 1b | **Identity selection** | "Who's watching?" overlay appears on load; selecting a user dismisses overlay and shows their avatar in the corner; switching mid-session updates active user |
 | 2 | **Add a movie via TMDB** | Search returns results with posters; selecting a result fills all fields; interest step allows toggling family members; saved entry appears in catalogue with poster and summary |
-| 3 | **Toggle interest on a card** | Tapping own avatar cycles through `neutral → yes → no`; border ring colour updates; avatar moves to correct group on card |
+| 3 | **Toggle interest on a card** | Tapping own avatar cycles through `neutral → yes → no`; border ring colour updates; avatar stays in the same position on card |
 | 4 | **Movie night — List A result** | Set up entries and interests; enter attendees and time; correct entry appears in List A; reason tags absent |
 | 5 | **Movie night — fallback (List C)** | Configure data so A and B are empty; fallback message appears; C1 and C2 entries shown with correct labels |
 | 6 | **Remove an entry** | Tap Remove on detail page; confirmation prompt appears; confirming deletes entry from catalogue |
