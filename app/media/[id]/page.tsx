@@ -38,7 +38,7 @@ export default function DetailPage() {
       supabase.from('family_members').select('*').order('created_at'),
       supabase.from('series_progress').select('*').eq('media_id', id),
     ])
-    if (!m) { router.push('/'); return }
+    if (!m) { router.replace('/'); return }
     setMedia(m); setInterests(i ?? []); setComments(c ?? [])
     setMembers(mems ?? []); setProgress(prog ?? [])
   }
@@ -124,7 +124,7 @@ export default function DetailPage() {
   return (
     <div className="max-w-lg mx-auto pb-12">
       <div className="flex items-center justify-between px-4 py-3">
-        <Link href="/" className="text-indigo-600 text-sm font-medium min-h-11 flex items-center">← Back</Link>
+        <button onClick={() => router.back()} className="text-indigo-600 text-sm font-medium min-h-11 flex items-center">← Back</button>
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowDeleteConfirm(true)}
